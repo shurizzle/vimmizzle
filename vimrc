@@ -22,6 +22,12 @@ Plug 'tpope/vim-surround'
 
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+endif
+let g:deoplete#enable_at_startup = 1
 
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-projectionist'
@@ -30,8 +36,8 @@ Plug 'noahfrederick/vim-laravel'
 Plug 'phpactor/phpactor' , {'do': 'composer install', 'for': 'php'}
 Plug 'phpactor/ncm2-phpactor' , {'for': 'php'}
 
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim' , {'for': 'typescript'}
+Plug 'mhartington/nvim-typescript', {'do': './install.sh', 'for': 'typescript'}
 
 call plug#end()
 
