@@ -1,7 +1,8 @@
 #!/bin/sh
 
-mkdir -p ~/.vim/bundle
-mkdir ~/.config/nvim
+mkdir -p ~/.vim/plugged
+mkdir -p ~/.config/nvim
 ln -s ~/.vim/vimrc ~/.vimrc
 ln -s ~/.vim/vimrc ~/.config/nvim/init.vim
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+mkdir -p ~/.vim/plugged/
+git clone https://github.com/junegunn/vim-plug ~/.vim/plugged/vim-plug

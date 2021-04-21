@@ -1,28 +1,30 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#begin()
+set rtp+=~/.vim/plugged/vim-plug/
+runtime plug.vim
 
-Plugin 'gmarik/Vundle.vim'
+call plug#begin('~/.vim/plugged')
+
+Plug 'junegunn/vim-plug'
 
 " Plugins
 
-Plugin 'cocopon/iceberg.vim'
-Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'tpope/vim-surround'
+Plug 'cocopon/iceberg.vim'
+Plug 'git://git.wincent.com/command-t.git'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-surround'
 
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-projectionist'
-Plugin 'noahfrederick/vim-composer'
-Plugin 'noahfrederick/vim-laravel'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-projectionist'
+Plug 'noahfrederick/vim-composer'
+Plug 'noahfrederick/vim-laravel'
 
-Plugin 'pangloss/vim-javascript'
-Plugin 'leafgarland/typescript-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
 
-call vundle#end()
+call plug#end()
 
 syntax enable
 filetype plugin indent on
