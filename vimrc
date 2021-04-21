@@ -8,6 +8,10 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/vim-plug'
 
+if !has('nvim')
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
 " Plugins
 
 Plug 'cocopon/iceberg.vim'
@@ -16,10 +20,15 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2'
+
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-projectionist'
 Plug 'noahfrederick/vim-composer'
 Plug 'noahfrederick/vim-laravel'
+Plug 'phpactor/phpactor' , {'do': 'composer install', 'for': 'php'}
+Plug 'phpactor/ncm2-phpactor' , {'for': 'php'}
 
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
@@ -29,6 +38,8 @@ call plug#end()
 syntax enable
 filetype plugin indent on
 
+set encoding=utf-8
+
 colo iceberg
 
 set exrc
@@ -36,6 +47,9 @@ set secure
 set viminfo+=!
 
 set list listchars=tab:\ ·,trail:×,nbsp:%,eol:·,extends:»,precedes:«
+
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
 
 map <S-n> :NERDTreeToggle<cr>
 
