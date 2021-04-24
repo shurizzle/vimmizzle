@@ -66,7 +66,7 @@ map <C-p> :tabp<CR>
 autocmd BufWritePre * :%s/\s\+$//e
 
 set showcmd
-set mouse=c
+set mouse=a
 set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.class
 set shiftwidth=4
 set tabstop=2
