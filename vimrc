@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/vim-plug'
 
+" vim shims
 if !has('nvim')
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
@@ -19,6 +20,7 @@ Plug 'git://git.wincent.com/command-t.git'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
 
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/ncm2'
@@ -36,6 +38,7 @@ Plug 'noahfrederick/vim-laravel'
 Plug 'phpactor/phpactor' , {'do': 'composer install', 'for': 'php'}
 Plug 'phpactor/ncm2-phpactor' , {'for': 'php'}
 
+" typescript
 Plug 'HerringtonDarkholme/yats.vim' , {'for': 'typescript'}
 Plug 'mhartington/nvim-typescript', {'do': './install.sh', 'for': 'typescript'}
 
