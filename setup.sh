@@ -1,8 +1,10 @@
 #!/bin/sh
 
+set -eux
+
 mkdir -p ~/.vim/plugged
 mkdir -p ~/.config/nvim
-ln -s ~/.vim/vimrc ~/.vimrc
-ln -s ~/.vim/vimrc ~/.config/nvim/init.vim
+[ -f ~/.vim/vimrc ] || ln -s ~/.vim/vimrc ~/.vimrc
+[ -f ~/.config/nvim/init.vim ] || ln -s ~/.vim/vimrc ~/.config/nvim/init.vim
 mkdir -p ~/.vim/plugged/
-git clone https://github.com/junegunn/vim-plug ~/.vim/plugged/vim-plug
+[ -d ~/.vim/plugged/vim-plug/.git ] || git clone https://github.com/junegunn/vim-plug ~/.vim/plugged/vim-plug
