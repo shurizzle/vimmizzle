@@ -35,6 +35,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-projectionist'
 Plug 'noahfrederick/vim-composer'
 Plug 'noahfrederick/vim-laravel'
+Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs', 'for': 'php'}
 Plug 'phpactor/phpactor' , {'do': 'composer install', 'for': 'php'}
 Plug 'phpactor/ncm2-phpactor' , {'for': 'php'}
 
