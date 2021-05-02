@@ -43,6 +43,14 @@ Plug 'phpactor/ncm2-phpactor' , {'for': 'php'}
 Plug 'HerringtonDarkholme/yats.vim' , {'for': 'typescript'}
 Plug 'mhartington/nvim-typescript', {'do': './install.sh', 'for': 'typescript'}
 
+" rust
+Plug 'cespare/vim-toml'
+Plug 'rust-lang/rust.vim'
+Plug 'autozimu/LanguageClient-neovim', {
+\ 'branch': 'next',
+\ 'do': 'bash install.sh',
+\ }
+
 call plug#end()
 
 syntax enable
@@ -80,3 +88,7 @@ set nu
 set fdm=marker
 set statusline=%F%m%r%h%w\ [Type:\ %Y]\ [Lines:\ %L\ @\ %p%%\ {%l;%v}]
 set laststatus=2
+
+let g:LanguageClient_serverCommands = {
+\ 'rust': ['rust-analyzer'],
+\ }
