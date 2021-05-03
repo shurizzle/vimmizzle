@@ -17,10 +17,14 @@ endif
 
 Plug 'airblade/vim-rooter'
 
+" ui
 Plug 'cocopon/iceberg.vim'
-Plug 'git://git.wincent.com/command-t.git'
-Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" lazyness
+Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
