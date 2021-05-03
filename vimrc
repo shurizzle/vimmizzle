@@ -74,7 +74,7 @@ set shiftwidth=4
 set tabstop=2
 set expandtab
 set window=53
-set nu
+set nu rnu
 set fdm=marker
 set statusline=%F%m%r%h%w\ [Type:\ %Y]\ [Lines:\ %L\ @\ %p%%\ {%l;%v}]
 set laststatus=2
