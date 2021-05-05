@@ -54,6 +54,8 @@ call plug#end()
 syntax enable
 filetype plugin indent on
 
+let mapleader = ","
+
 set encoding=utf-8
 
 colo iceberg
