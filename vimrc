@@ -99,7 +99,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " List code actions available for the current buffer
-nmap <leader>ca  <Plug>(coc-codeaction)
+nmap <leader>a  <Plug>(coc-codeaction)
 
 " Use <CR> to validate completion (allows auto import on completion)
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
