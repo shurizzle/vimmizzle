@@ -63,6 +63,7 @@ colo iceberg
 set exrc
 set secure
 set viminfo+=!
+set clipboard+=unnamedplus
 
 set list listchars=tab:\ ·,trail:×,nbsp:%,eol:·,extends:»,precedes:«
 
