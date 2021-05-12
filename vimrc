@@ -67,7 +67,7 @@ set clipboard+=unnamedplus
 
 set list listchars=tab:\ ·,trail:×,nbsp:%,eol:·,extends:»,precedes:«
 
-map <S-n> :NERDTreeToggle<cr>
+map <C-b> :NERDTreeToggle<cr>
 
 map t :tabnew<CR>
 map <C-n> :tabn<CR>
