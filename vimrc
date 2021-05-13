@@ -33,6 +33,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " :CocInstall coc-phpactor
 " :CocInstall coc-rust-analyzer
+" :CocInstall coc-highlight
 
 " php
 Plug 'tpope/vim-dispatch'
@@ -57,6 +58,7 @@ filetype plugin indent on
 let mapleader = ","
 
 set encoding=utf-8
+set termguicolors
 
 colo iceberg
 
@@ -95,6 +97,9 @@ let g:rustfmt_fail_silently = 0
 " Select range based on AST
 nmap <silent><Leader>r <Plug>(coc-range-select)
 xmap <silent><Leader>r <Plug>(coc-range-select)
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
 
 " Navigations
 nmap <silent> gd <Plug>(coc-definition)
