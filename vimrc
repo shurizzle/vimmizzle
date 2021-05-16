@@ -85,7 +85,7 @@ call coc#config('coc', {
 call coc#config('explorer', {
             \   'previewAction.onHover': v:false,
             \   'keyMappings.global': {
-            \     '<cr>': ['expandable?', 'expand', 'open'],
+            \     '<cr>': ['expandable?', ['expanded?', 'collapse','expand'], 'open'],
             \     'v': 'open:vsplit'
             \   }
             \ })
