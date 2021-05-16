@@ -109,7 +109,8 @@ let g:rooter_manual_only = 1
 
 " Coc
 let g:coc_start_at_startup=0
-let g:coc_global_extensions = [ 'coc-phpactor', 'coc-rust-analyzer', 'coc-highlight', 'coc-explorer' ]
+let g:coc_global_extensions = [ 'coc-phpactor', 'coc-rust-analyzer',
+            \ 'coc-highlight', 'coc-explorer' ]
 call coc#config('suggest', {'noselect': v:false})
 call coc#config('coc', {
             \   'preferences.formatOnSaveFiletypes': [
