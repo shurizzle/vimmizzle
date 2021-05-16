@@ -63,6 +63,19 @@ set exrc
 set secure
 set viminfo+=!
 set clipboard+=unnamedplus
+set showcmd
+set mouse=a
+set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.class
+set shiftwidth=4
+set tabstop=2
+set expandtab
+set window=53
+set colorcolumn=80
+set nu rnu
+set fdm=marker
+set statusline=%F%m%r%h%w\ [Type:\ %Y]\ [Lines:\ %L\ @\ %p%%\ {%l;%v}]
+set laststatus=2
+
 
 set list listchars=tab:\ ·,trail:×,nbsp:%,eol:·,extends:»,precedes:«
 
@@ -134,19 +147,6 @@ map <C-n> :tabn<CR>
 map <C-p> :tabp<CR>
 
 autocmd BufWritePre * :%s/\s\+$//e
-
-set showcmd
-set mouse=a
-set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.class
-set shiftwidth=4
-set tabstop=2
-set expandtab
-set window=53
-set colorcolumn=80
-set nu rnu
-set fdm=marker
-set statusline=%F%m%r%h%w\ [Type:\ %Y]\ [Lines:\ %L\ @\ %p%%\ {%l;%v}]
-set laststatus=2
 
 " rust
 let g:rustfmt_autosave = 1
