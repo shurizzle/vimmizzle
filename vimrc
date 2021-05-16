@@ -76,8 +76,33 @@ set nu rnu
 set fdm=marker
 set laststatus=2
 
-
 set list listchars=tab:\ ·,trail:×,nbsp:%,eol:·,extends:»,precedes:«
+
+function! AirlineInit()
+  let spc = g:airline_symbols.space
+  call airline#parts#define('linenr', {
+              \   'raw': '%{g:airline_symbols.linenr}%l',
+              \   'accent': 'normal'
+              \ })
+  call airline#parts#define('maxlinenr', {
+              \   'raw': '/%L',
+              \   'accent': 'normal'
+              \ })
+  call airline#parts#define('colnr', {
+              \   'raw': ':%v',
+              \   'accent': 'normal'
+              \ })
+  if airline#util#winwidth() > 79
+    let g:airline_section_z = airline#section#create(['windowswap',
+                \ 'obsession', 'linenr', 'colnr', 'maxlinenr', spc.'%p%%'])
+  else
+    let g:airline_section_z = airline#section#create(['linenr', 'colnr',
+                \ spc.'%p%%'])
+  endif
+
+  call airline#update_statusline()
+endfunction
+autocmd VimEnter * call AirlineInit()
 
 " Coc
 call coc#config('suggest', {'noselect': v:false})
