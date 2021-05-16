@@ -21,6 +21,7 @@ Plug 'airblade/vim-rooter'
 Plug 'cocopon/iceberg.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'vim-airline/vim-airline'
 
 " lazyness
 Plug 'tpope/vim-repeat'
@@ -73,7 +74,6 @@ set window=53
 set colorcolumn=80
 set nu rnu
 set fdm=marker
-set statusline=%F%m%r%h%w\ [Type:\ %Y]\ [Lines:\ %L\ @\ %p%%\ {%l;%v}]
 set laststatus=2
 
 
