@@ -124,7 +124,9 @@ let g:coc_explorer_global_presets = {
             \   }
             \ }
 
-map <C-b> :CocCommand explorer<cr>
+nnoremap <silent> <C-b> :CocCommand explorer<CR>
+vnoremap <silent> <C-b> :<C-u>CocCommand explorer<CR>
+inoremap <silent> <C-b> <C-o>:CocCommand explorer<CR>
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 map t :tabnew<CR>
