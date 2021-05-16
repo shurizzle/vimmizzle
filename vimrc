@@ -29,11 +29,8 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
 " Semantic language support
+let g:coc_global_extensions = [ 'coc-phpactor', 'coc-rust-analyzer', 'coc-highlight', 'coc-explorer' ]
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" :CocInstall coc-phpactor
-" :CocInstall coc-rust-analyzer
-" :CocInstall coc-highlight
-" :CocInstall coc-explorer
 
 " php
 Plug 'tpope/vim-dispatch'
