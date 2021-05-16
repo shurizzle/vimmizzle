@@ -30,7 +30,6 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
 " Semantic language support
-let g:coc_global_extensions = [ 'coc-phpactor', 'coc-rust-analyzer', 'coc-highlight', 'coc-explorer' ]
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " php
@@ -104,7 +103,13 @@ function! AirlineInit()
 endfunction
 autocmd VimEnter * call AirlineInit()
 
+" rooter
+let g:rooter_silent_chdir = 1
+let g:rooter_manual_only = 1
+
 " Coc
+let g:coc_start_at_startup=0
+let g:coc_global_extensions = [ 'coc-phpactor', 'coc-rust-analyzer', 'coc-highlight', 'coc-explorer' ]
 call coc#config('suggest', {'noselect': v:false})
 call coc#config('coc', {
             \   'preferences.formatOnSaveFiletypes': [
@@ -161,6 +166,21 @@ let g:coc_explorer_global_presets = {
             \     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
             \   }
             \ }
+
+autocmd StdinReadPre * let g:isReadingFromStdin = 1
+function! ProjectStart()
+  let has_root = !empty(FindRootDirectory()) " check if it is a project
+
+  Rooter " start rooter
+  call coc#rpc#start_server() " start coc
+
+  " open coc-explorer if I'm in a project and vim is opened without arguments
+  " nor a stdin pipe
+  if has_root && !argc() && !exists('g:isReadingFromStdin')
+    call coc#rpc#notify('runCommand', ['explorer'])
+  endif
+endfunction
+autocmd VimEnter * call ProjectStart()
 
 nnoremap <silent> <C-b> :CocCommand explorer<CR>
 vnoremap <silent> <C-b> :<C-u>CocCommand explorer<CR>
