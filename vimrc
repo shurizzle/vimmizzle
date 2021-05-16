@@ -186,6 +186,7 @@ autocmd VimEnter * call ProjectStart()
 
 nnoremap <silent> <space>e :CocCommand explorer<CR>
 nnoremap <silent> <space>ef :CocCommand explorer --preset floating<CR>
+nnoremap <silent> <space>et :CocCommand explorer --preset tab<CR>
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 map t :tabnew<CR>
