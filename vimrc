@@ -19,7 +19,6 @@ Plug 'airblade/vim-rooter'
 
 " ui
 Plug 'cocopon/iceberg.vim'
-Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
@@ -69,7 +68,6 @@ set clipboard+=unnamedplus
 
 set list listchars=tab:\ ·,trail:×,nbsp:%,eol:·,extends:»,precedes:«
 
-map <C-b> :NERDTreeToggle<cr>
 
 map t :tabnew<CR>
 map <C-n> :tabn<CR>
