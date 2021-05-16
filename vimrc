@@ -296,3 +296,27 @@ inoremap <End> <C-o>:echo "No end for you!"<CR>
 nnoremap <Home> :echo "No home for you!"<CR>
 vnoremap <Home> :<C-u>echo "No home for you!"<CR>
 inoremap <Home> <C-o>:echo "No home for you!"<CR>
+
+function! Sprunge(line1, line2) abort
+  let l:text = join(getline(a:line1, a:line2), "\n")
+  redraw | echon 'Posting to sprunge ... '
+
+  let l:url = system('curl -s -F "sprunge=<-" http://sprunge.us', l:text)[0:-2]
+  redraw
+  if empty(l:url)
+    let l:url = system("curl -s http://google.com")
+    if empty(l:url)
+      echohl WarningMsg|echomsg 'Error: no network available'
+    else
+      echohl WarningMsg|echomsg 'Error: sprunge.us has been shutdown or altered its api'
+    endif
+    echohl None
+  else
+    call setreg('+', l:url)
+    echomsg 'Done: ' . l:url
+  endif
+endfunction
+
+command! -range=% -nargs=0 Sprunge call Sprunge(<line1>, <line2>)
+
+" vim:set ft=vim sw=2 sts=2 et:
