@@ -33,6 +33,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " :CocInstall coc-phpactor
 " :CocInstall coc-rust-analyzer
 " :CocInstall coc-highlight
+" :CocInstall coc-explorer
 
 " php
 Plug 'tpope/vim-dispatch'
@@ -68,6 +69,8 @@ set clipboard+=unnamedplus
 
 set list listchars=tab:\ ·,trail:×,nbsp:%,eol:·,extends:»,precedes:«
 
+map <C-b> :CocCommand explorer<cr>
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 map t :tabnew<CR>
 map <C-n> :tabn<CR>
