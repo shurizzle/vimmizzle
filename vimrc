@@ -66,6 +66,21 @@ set clipboard+=unnamedplus
 
 set list listchars=tab:\ ·,trail:×,nbsp:%,eol:·,extends:»,precedes:«
 
+" Coc
+call coc#config('suggest', {'noselect': v:false})
+call coc#config('coc', {
+            \   'preferences.formatOnSaveFiletypes': [
+            \     'javascript',
+            \     'typescript',
+            \     'typescriptreact',
+            \     'json',
+            \     'php',
+            \     'typescript.tsx',
+            \     'graphql',
+            \     'php'
+            \   ]
+            \ })
+
 map <C-b> :CocCommand explorer<cr>
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
