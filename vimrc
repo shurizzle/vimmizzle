@@ -150,6 +150,9 @@ let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 
+" php
+call coc#config('phpactor', {'enable': v:true})
+
 " Select range based on AST
 nmap <silent><Leader>r <Plug>(coc-range-select)
 xmap <silent><Leader>r <Plug>(coc-range-select)
