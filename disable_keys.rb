@@ -5,7 +5,7 @@ def disable(what)
   [
     "nnoremap <#{what}> :echo \"No #{iwhat} for you!\"<CR>",
     "vnoremap <#{what}> :<C-u>echo \"No #{iwhat} for you!\"<CR>",
-    "inoremap <#{what}> <C-o>echo \"No #{iwhat} for you!\"<CR>",
+    "inoremap <#{what}> <C-o>:echo \"No #{iwhat} for you!\"<CR>",
   ]
 end
 
