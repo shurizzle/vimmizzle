@@ -178,15 +178,16 @@ function! ProjectStart()
 
   " open coc-explorer if I'm in a project and vim is opened without arguments
   " nor a stdin pipe
-  if has_root && !argc() && !exists('g:isReadingFromStdin')
+  if has_root && !argc() && !exists('g:isReadingFromStdin') " if is project
     call coc#rpc#notify('runCommand', ['explorer'])
+  else
+    autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
   endif
 endfunction
 autocmd VimEnter * call ProjectStart()
 
 nnoremap <silent> <space>e :CocCommand explorer<CR>
 nnoremap <silent> <space>ef :CocCommand explorer --preset floating<CR>
-autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 map t :tabnew<CR>
 map <C-n> :tabn<CR>
