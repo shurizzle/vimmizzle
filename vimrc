@@ -209,6 +209,10 @@ xmap <silent><Leader>r <Plug>(coc-range-select)
 nmap <leader>rn <Plug>(coc-rename)
 
 " Navigations
+nmap <silent> tgd :<C-u>call CocAction('jumpDefinition', 'tab drop')<CR>
+nmap <silent> tgy :<C-u>call CocAction('jumpTypeDefinition', 'tab drop')<CR>
+nmap <silent> tgi :<C-u>call CocAction('jumpImplementation', 'tab drop')<CR>
+nmap <silent> tgr :<C-u>call CocAction('jumpReferences', 'tab drop')<CR>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
