@@ -85,6 +85,8 @@ install_python3() {
   if ! is_command python3; then
     if is_macos; then
       brew install python
+    elif is_debian; then
+      sudo apt-get install -y python3
     fi
   fi
 }
