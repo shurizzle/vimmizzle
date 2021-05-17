@@ -37,6 +37,9 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
+" viml
+Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
+
 " php
 if executable('php') && executable('composer')
   Plug 'tpope/vim-dispatch'
@@ -186,6 +189,7 @@ if !empty(glob('~/.vim/plugged/coc.nvim'))
   endif
 endif
 
+" explorer
 let g:coc_explorer_global_presets = {
             \   '.vim': {
             \     'root-uri': '~/.vim',
@@ -312,12 +316,11 @@ omap ac <Plug>(coc-classobj-a)
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Execute macro on each line if in visual mode
-xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
-
 function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
 " just use vim.
 nnoremap <Left> :echo "No left for you!"<CR>
@@ -345,6 +348,7 @@ nnoremap <Home> :echo "No home for you!"<CR>
 vnoremap <Home> :<C-u>echo "No home for you!"<CR>
 inoremap <Home> <C-o>:echo "No home for you!"<CR>
 
+" sprunge command
 function! Sprunge(line1, line2) abort
   let l:text = join(getline(a:line1, a:line2), "\n")
   redraw | echon 'Posting to sprunge ... '
@@ -364,7 +368,6 @@ function! Sprunge(line1, line2) abort
     echomsg 'Done: ' . l:url
   endif
 endfunction
-
 command! -range=% -nargs=0 Sprunge call Sprunge(<line1>, <line2>)
 
 " vim:set ft=vim sw=2 sts=2 et:
