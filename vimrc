@@ -40,6 +40,9 @@ Plug 'jiangmiao/auto-pairs'
 " viml
 Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
 
+" css
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+
 " php
 if executable('php') && executable('composer')
   Plug 'tpope/vim-dispatch'
