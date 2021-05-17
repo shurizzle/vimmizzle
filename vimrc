@@ -35,7 +35,7 @@ Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
 Plug 'tpope/vim-repeat'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
-Plug 'jiangmiao/auto-pairs'
+Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
 
 " viml
 Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
