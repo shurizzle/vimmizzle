@@ -81,6 +81,10 @@ install_yarn() {
   fi
 }
 
+install_pynvim() {
+  sudo npm install --global neovim
+}
+
 install_python3() {
   if ! is_command python3; then
     if is_macos; then
@@ -110,16 +114,20 @@ install_python() {
 
 install_extra() {
   if is_macos; then
-    brew install bat ripgrep the_silver_searcher fzf
+    for pkg in bat ripgrep the_silver_searcher fzf; do
+      if ! brew ls --versions "$pkg" >/dev/null 2>/dev/null; then
+        brew install "$pkg"
+      fi
+    done
   elif is_debian; then
-    sudo apt-get install bat ripgrep silversearcher-ag fzf
+    sudo apt-get install -y bat ripgrep silversearcher-ag fzf
   fi
 }
 
 for py in '' 2 2.7 2.6 3 3.9 3.8 3.7 3.6 3.5 3.4 3.3; do
   pycmd="python${py}"
   if is_command "$pycmd"; then
-    $pycmd ~/.vim/pynvim-install.py
+    "$pycmd" ~/.vim/pynvim-install.py
   fi
 done
 
@@ -127,6 +135,7 @@ install_python
 install_git
 install_npm
 install_yarn
+install_pynvim
 install_extra
 
 mkdir -p ~/.vim/plugged
