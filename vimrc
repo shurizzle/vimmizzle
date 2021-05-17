@@ -40,8 +40,9 @@ Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
 " viml
 Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
 
-" css
+" web
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
 
 " php
 if executable('php') && executable('composer')
