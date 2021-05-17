@@ -34,11 +34,13 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " php
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-projectionist'
-Plug 'noahfrederick/vim-composer'
-Plug 'noahfrederick/vim-laravel'
-Plug 'phpactor/phpactor' , {'do': 'composer install', 'for': 'php'}
+if executable('php') && executable('composer')
+  Plug 'tpope/vim-dispatch'
+  Plug 'tpope/vim-projectionist'
+  Plug 'noahfrederick/vim-composer'
+  Plug 'noahfrederick/vim-laravel'
+  Plug 'phpactor/phpactor' , {'do': 'composer install', 'for': 'php'}
+endif
 
 " typescript
 Plug 'HerringtonDarkholme/yats.vim' , {'for': 'typescript'}
@@ -121,8 +123,11 @@ let g:rooter_manual_only = 1
 
 " Coc
 let g:coc_start_at_startup=0
-let g:coc_global_extensions = [ 'coc-phpactor', 'coc-rust-analyzer',
-            \ 'coc-highlight', 'coc-explorer' ]
+let g:coc_global_extensions = [ 'coc-rust-analyzer', 'coc-highlight',
+      \ 'coc-explorer' ]
+if executable('php') && executable('composer')
+  let g:coc_global_extensions = [ 'coc-phpactor' ] + g:coc_global_extensions
+endif
 call coc#config('suggest', {'noselect': v:false})
 call coc#config('coc', {
             \   'preferences.formatOnSaveFiletypes': [
@@ -132,8 +137,7 @@ call coc#config('coc', {
             \     'json',
             \     'php',
             \     'typescript.tsx',
-            \     'graphql',
-            \     'php'
+            \     'graphql'
             \   ]
             \ })
 
@@ -212,10 +216,12 @@ let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 
 " php
-call coc#config('phpactor', {
-      \   'enable': v:true,
-      \   'path': '~/.vim/plugged/phpactor/bin/phpactor'
-      \ })
+if executable('php') && executable('composer')
+  call coc#config('phpactor', {
+        \   'enable': v:true,
+        \   'path': '~/.vim/plugged/phpactor/bin/phpactor'
+        \ })
+endif
 
 " Select range based on AST
 nmap <silent><Leader>r <Plug>(coc-range-select)
