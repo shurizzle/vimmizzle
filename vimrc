@@ -4,6 +4,8 @@ filetype off
 set rtp+=~/.vim/plugged/vim-plug/
 runtime plug.vim
 
+let g:plug_url_format = 'git@github.com:%s.git'
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/vim-plug'

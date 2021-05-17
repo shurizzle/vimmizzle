@@ -130,7 +130,7 @@ mkdir -p ~/.config/nvim
 [ -f ~/.vim/vimrc ] || ln -s ~/.vim/vimrc ~/.vimrc
 [ -f ~/.config/nvim/init.vim ] || ln -s ~/.vim/vimrc ~/.config/nvim/init.vim
 mkdir -p ~/.vim/plugged/
-[ -d ~/.vim/plugged/vim-plug/.git ] || git clone https://github.com/junegunn/vim-plug ~/.vim/plugged/vim-plug
+[ -d ~/.vim/plugged/vim-plug/.git ] || git clone git@github.com:junegunn/vim-plug.git ~/.vim/plugged/vim-plug
 
 if is_command vim; then
   vim +PlugInstall +qa
