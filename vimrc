@@ -212,7 +212,10 @@ let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 
 " php
-call coc#config('phpactor', {'enable': v:true})
+call coc#config('phpactor', {
+      \   'enable': v:true,
+      \   'path': '~/.vim/plugged/phpactor/bin/phpactor'
+      \ })
 
 " Select range based on AST
 nmap <silent><Leader>r <Plug>(coc-range-select)
