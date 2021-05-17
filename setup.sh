@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eu
+set -eux
 
 if [ "$(uname)" = Darwin ]; then
   is_macos() {
@@ -82,44 +82,12 @@ install_yarn() {
   fi
 }
 
-get_pyfile() {
-  vim -u NORC -n -e -s +"$1"' import sys; import os; open(os.environ["PYFILE"], "w").write(sys.executable)' +qa
-}
-
-if is_command vim; then
-    export PYFILE="$(mktemp)"
-    if ! get_pyfile python; then
-      if ! get_pyfile pythonx; then
-        if ! get_pyfile python3; then
-          get_pyfile python2
-        fi
-      fi
-    fi
-    PYTHON="$(cat "$PYFILE")"
-    rm -f "$PYFILE"
-    unset PYFILE
-
-    if [ "x$PYTHON" = x ]; then
-      echo "Your version of vim doesn't support python" >&2
-      exit 1
-    else
-      if ! "$PYTHON" -c 'import pynvim' >/dev/null 2>/dev/null; then
-        if ! "$PYTHON" -m pip --version >/dev/null 2>/dev/null; then
-          PYVER="$("$PYTHON" -c 'import sys; v = sys.version_info[:2]; print(str(v[0]) + "." + str(v[1]))')"
-          PIP_URL="https://bootstrap.pypa.io/pip/get-pip.py"
-          GET_PIP="$(mktemp)"
-          curl -o "$GET_PIP" "$PIP_URL"
-          if ! "$PYTHON" "$GET_PIP"; then
-            PIP_URL="https://bootstrap.pypa.io/pip/${PYVER}/get-pip.py"
-            sudo "$PYTHON" "$GET_PIP"
-          fi
-          rm -f "$GET_PIP"
-        fi
-
-        sudo "$PYTHON" -m pip install pynvim
-      fi
-    fi
-fi
+for py in '' 2 2.7 2.6 3 3.9 3.8 3.7 3.6 3.5 3.4 3.3; do
+  pycmd="python${py}"
+  if is_command "$pycmd"; then
+    $pycmd ~/.vim/pynvim-install.py
+  fi
+done
 
 install_git
 install_npm
@@ -133,10 +101,12 @@ mkdir -p ~/.vim/plugged/
 [ -d ~/.vim/plugged/vim-plug/.git ] || git clone git@github.com:junegunn/vim-plug.git ~/.vim/plugged/vim-plug
 
 if is_command vim; then
+  echo vim +PlugInstall +qa
   vim +PlugInstall +qa
 fi
 
 if is_command nvim; then
+  echo nvim +PlugInstall +qa
   nvim +PlugInstall +qa
 fi
 
