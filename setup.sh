@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eux
+set -eu
 
 if [ "$(uname)" = Darwin ]; then
   is_macos() {
@@ -72,7 +72,6 @@ install_npm() {
 
 install_yarn() {
   if ! is_command yarn; then
-    echo "Install yarn"
     if is_macos; then
       brew install yarn
     elif is_debian; then
@@ -82,6 +81,32 @@ install_yarn() {
   fi
 }
 
+install_python3() {
+  if ! is_command python3; then
+    if is_macos; then
+      brew install python
+    fi
+  fi
+}
+
+has_python() {
+  for py in '' 2 2.7 2.6 3 3.9 3.8 3.7 3.6 3.5 3.4 3.3; do
+    pycmd="python${py}"
+    if is_command "$pycmd"; then
+      return 0
+    fi
+  done
+
+  return 1
+}
+
+install_python() {
+  if ! has_python; then
+    install_python3
+  fi
+}
+
+
 for py in '' 2 2.7 2.6 3 3.9 3.8 3.7 3.6 3.5 3.4 3.3; do
   pycmd="python${py}"
   if is_command "$pycmd"; then
@@ -89,6 +114,7 @@ for py in '' 2 2.7 2.6 3 3.9 3.8 3.7 3.6 3.5 3.4 3.3; do
   fi
 done
 
+install_python
 install_git
 install_npm
 install_yarn
@@ -101,12 +127,10 @@ mkdir -p ~/.vim/plugged/
 [ -d ~/.vim/plugged/vim-plug/.git ] || git clone git@github.com:junegunn/vim-plug.git ~/.vim/plugged/vim-plug
 
 if is_command vim; then
-  echo vim +PlugInstall +qa
   vim +PlugInstall +qa
 fi
 
 if is_command nvim; then
-  echo nvim +PlugInstall +qa
   nvim +PlugInstall +qa
 fi
 
