@@ -108,6 +108,11 @@ install_python() {
   fi
 }
 
+install_extra() {
+  if is_debian; then
+    sudo apt-get install bat ripgrep silversearcher-ag fzf
+  fi
+}
 
 for py in '' 2 2.7 2.6 3 3.9 3.8 3.7 3.6 3.5 3.4 3.3; do
   pycmd="python${py}"
@@ -120,6 +125,7 @@ install_python
 install_git
 install_npm
 install_yarn
+install_extra
 
 mkdir -p ~/.vim/plugged
 mkdir -p ~/.config/nvim
