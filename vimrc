@@ -45,6 +45,7 @@ if executable('php') && executable('composer')
   Plug 'noahfrederick/vim-laravel'
   Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'}
   Plug 'phpactor/coc-phpactor', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'yaegassy/coc-php-cs-fixer', {'do': 'yarn install --frozen-lockfile'}
 endif
 
 " typescript
@@ -177,6 +178,10 @@ if !empty(glob('~/.vim/plugged/coc.nvim'))
     call coc#config('phpactor', {
           \   'enable': v:true,
           \   'path': '~/.vim/plugged/phpactor/bin/phpactor'
+          \ })
+
+    call coc#config('php-cs-fixer', {
+          \   'enableFormatProvider': v:true
           \ })
   endif
 endif
