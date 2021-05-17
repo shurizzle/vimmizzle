@@ -17,12 +17,17 @@ endif
 
 Plug 'airblade/vim-rooter'
 
+" Semantic language support
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+
 " ui
 Plug 'cocopon/iceberg.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
+Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
 
 " lazyness
 Plug 'tpope/vim-repeat'
@@ -30,25 +35,24 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
-" Semantic language support
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 " php
 if executable('php') && executable('composer')
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-projectionist'
   Plug 'noahfrederick/vim-composer'
   Plug 'noahfrederick/vim-laravel'
-  Plug 'phpactor/phpactor' , {'do': 'composer install', 'for': 'php'}
+  Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'}
+  Plug 'phpactor/coc-phpactor', {'do': 'yarn install --frozen-lockfile'}
 endif
 
 " typescript
-Plug 'HerringtonDarkholme/yats.vim' , {'for': 'typescript'}
+Plug 'HerringtonDarkholme/yats.vim', {'for': 'typescript'}
 Plug 'mhartington/nvim-typescript', {'do': './install.sh', 'for': 'typescript'}
 
 " rust
 Plug 'cespare/vim-toml'
 Plug 'rust-lang/rust.vim'
+Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 
 call plug#end()
 
@@ -122,12 +126,7 @@ let g:rooter_silent_chdir = 1
 let g:rooter_manual_only = 1
 
 " Coc
-let g:coc_start_at_startup=0
-let g:coc_global_extensions = [ 'coc-rust-analyzer', 'coc-highlight',
-      \ 'coc-explorer' ]
-if executable('php') && executable('composer')
-  let g:coc_global_extensions = [ 'coc-phpactor' ] + g:coc_global_extensions
-endif
+let g:coc_start_at_startup = 0
 call coc#config('suggest', {'noselect': v:false})
 call coc#config('coc', {
             \   'preferences.formatOnSaveFiletypes': [
