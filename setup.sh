@@ -109,7 +109,9 @@ install_python() {
 }
 
 install_extra() {
-  if is_debian; then
+  if is_macos; then
+    brew install bat ripgrep the_silver_searcher fzf
+  elif is_debian; then
     sudo apt-get install bat ripgrep silversearcher-ag fzf
   fi
 }
