@@ -72,7 +72,17 @@ filetype plugin indent on
 let mapleader = ","
 
 set encoding=utf-8
-set termguicolors
+if has('termguicolors')
+  set termguicolors
+endif
+set t_ut=
+if $TERM ==# 'xterm-kitty'
+  set t_Co=256
+  if !has('nvim')
+    set t_8f=[38:2:%lu:%lu:%lum
+    set t_8b=[48:2:%lu:%lu:%lum
+  endif
+endif
 
 if HasColorscheme('iceberg')
   colo iceberg
