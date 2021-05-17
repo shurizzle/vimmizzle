@@ -134,7 +134,7 @@ let g:rooter_manual_only = 1
 
 " Coc
 let g:coc_start_at_startup = 0
-if exists('*coc#config')
+if !empty(glob('~/.vim/plugged/coc.nvim'))
   call coc#config('suggest', {'noselect': v:false})
   call coc#config('coc', {
               \   'preferences.formatOnSaveFiletypes': [
@@ -156,6 +156,13 @@ if exists('*coc#config')
               \     'v': 'open:vsplit'
               \   }
               \ })
+  " PHP
+  if executable('php') && executable('composer')
+    call coc#config('phpactor', {
+          \   'enable': v:true,
+          \   'path': '~/.vim/plugged/phpactor/bin/phpactor'
+          \ })
+  endif
 endif
 
 let g:coc_explorer_global_presets = {
@@ -222,14 +229,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
-
-" php
-if executable('php') && executable('composer') && exists('*coc#config')
-  call coc#config('phpactor', {
-        \   'enable': v:true,
-        \   'path': '~/.vim/plugged/phpactor/bin/phpactor'
-        \ })
-endif
 
 " Select range based on AST
 nmap <silent><Leader>r <Plug>(coc-range-select)
