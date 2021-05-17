@@ -49,6 +49,9 @@ if executable('php') && executable('composer')
   Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'}
   Plug 'phpactor/coc-phpactor', {'do': 'yarn install --frozen-lockfile'}
   Plug 'yaegassy/coc-php-cs-fixer', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'jwalton512/vim-blade'
+  Plug 'yaegassy/coc-blade-linter', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'yaegassy/coc-blade-formatter', {'do': 'yarn install --frozen-lockfile'}
 endif
 
 " typescript
@@ -163,6 +166,7 @@ if !empty(glob('~/.vim/plugged/coc.nvim'))
               \     'typescriptreact',
               \     'json',
               \     'php',
+              \     'blade',
               \     'typescript.tsx',
               \     'graphql'
               \   ]
