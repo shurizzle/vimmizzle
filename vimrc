@@ -61,6 +61,8 @@ endif
 " typescript
 Plug 'HerringtonDarkholme/yats.vim', {'for': 'typescript'}
 Plug 'mhartington/nvim-typescript', {'do': './install.sh', 'for': 'typescript'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
 
 " rust
 Plug 'cespare/vim-toml'
