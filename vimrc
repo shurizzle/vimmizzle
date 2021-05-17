@@ -91,6 +91,7 @@ set tabstop=2
 set expandtab
 set window=53
 set colorcolumn=80
+set background=dark
 set nu rnu
 set fdm=marker
 set laststatus=2
