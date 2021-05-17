@@ -56,6 +56,11 @@ Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 
 call plug#end()
 
+function! HasColorscheme(name) abort
+    let pat = 'colors/'.a:name.'.vim'
+    return !empty(globpath(&rtp, pat))
+endfunction
+
 syntax enable
 filetype plugin indent on
 
@@ -64,7 +69,9 @@ let mapleader = ","
 set encoding=utf-8
 set termguicolors
 
-colo iceberg
+if HasColorscheme('iceberg')
+  colo iceberg
+endif
 
 set exrc
 set secure
@@ -127,27 +134,29 @@ let g:rooter_manual_only = 1
 
 " Coc
 let g:coc_start_at_startup = 0
-call coc#config('suggest', {'noselect': v:false})
-call coc#config('coc', {
-            \   'preferences.formatOnSaveFiletypes': [
-            \     'javascript',
-            \     'typescript',
-            \     'typescriptreact',
-            \     'json',
-            \     'php',
-            \     'typescript.tsx',
-            \     'graphql'
-            \   ]
-            \ })
+if exists('*coc#config')
+  call coc#config('suggest', {'noselect': v:false})
+  call coc#config('coc', {
+              \   'preferences.formatOnSaveFiletypes': [
+              \     'javascript',
+              \     'typescript',
+              \     'typescriptreact',
+              \     'json',
+              \     'php',
+              \     'typescript.tsx',
+              \     'graphql'
+              \   ]
+              \ })
 
-" Explorer
-call coc#config('explorer', {
-            \   'previewAction.onHover': v:false,
-            \   'keyMappings.global': {
-            \     '<cr>': ['expandable?', ['expanded?', 'collapse','expand'], 'open'],
-            \     'v': 'open:vsplit'
-            \   }
-            \ })
+  " Explorer
+  call coc#config('explorer', {
+              \   'previewAction.onHover': v:false,
+              \   'keyMappings.global': {
+              \     '<cr>': ['expandable?', ['expanded?', 'collapse','expand'], 'open'],
+              \     'v': 'open:vsplit'
+              \   }
+              \ })
+endif
 
 let g:coc_explorer_global_presets = {
             \   '.vim': {
@@ -215,7 +224,7 @@ let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 
 " php
-if executable('php') && executable('composer')
+if executable('php') && executable('composer') && exists('*coc#config')
   call coc#config('phpactor', {
         \   'enable': v:true,
         \   'path': '~/.vim/plugged/phpactor/bin/phpactor'
