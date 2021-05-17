@@ -74,6 +74,9 @@ call plug#end()
 " vim-plug is managing itself as a plugin so disable PlugUpgrade
 delc PlugUpgrade
 
+" Reload vimrc when working on it
+au! BufWritePost $MYVIMRC source %
+
 function! HasColorscheme(name) abort
     let pat = 'colors/'.a:name.'.vim'
     return !empty(globpath(&rtp, pat))
