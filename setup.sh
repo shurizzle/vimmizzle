@@ -114,13 +114,13 @@ install_python() {
 
 install_extra() {
   if is_macos; then
-    for pkg in bat ripgrep the_silver_searcher fzf; do
+    for pkg in bat ripgrep the_silver_searcher fzf watchman; do
       if ! brew ls --versions "$pkg" >/dev/null 2>/dev/null; then
         brew install "$pkg"
       fi
     done
   elif is_debian; then
-    sudo apt-get install -y bat ripgrep silversearcher-ag fzf
+    sudo apt-get install -y bat ripgrep silversearcher-ag fzf watchman
   fi
 }
 
