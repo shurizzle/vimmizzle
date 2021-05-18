@@ -59,8 +59,7 @@ if executable('php') && executable('composer')
 endif
 
 " typescript
-Plug 'HerringtonDarkholme/yats.vim', {'for': 'typescript'}
-Plug 'mhartington/nvim-typescript', {'do': './install.sh', 'for': 'typescript'}
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
 
