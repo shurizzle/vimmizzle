@@ -127,6 +127,10 @@ set background=dark
 set nu rnu
 set fdm=marker
 set laststatus=2
+set nobackup
+set nowritebackup
+set noswapfile
+set noundofile
 
 set list listchars=tab:\ ·,trail:×,nbsp:%,eol:·,extends:»,precedes:«
 
