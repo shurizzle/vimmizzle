@@ -36,6 +36,8 @@ Plug 'tpope/vim-repeat'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
+Plug 'editorconfig/editorconfig-vim'
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 
 " viml
 Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
