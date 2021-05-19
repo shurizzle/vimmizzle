@@ -181,11 +181,18 @@ if !empty(glob('~/.vim/plugged/coc.nvim'))
               \     'typescriptreact',
               \     'json',
               \     'php',
-              \     'blade',
               \     'typescript.tsx',
               \     'graphql'
               \   ]
               \ })
+
+  " We have a timeout in coc's formatOnSaveFiletypes
+  function! AutoFormat()
+    if &filetype ==# 'blade'
+      call CocAction('format')
+    endif
+  endfunction
+  autocmd BufWritePre * call AutoFormat()
 
   " Explorer
   call coc#config('explorer', {
