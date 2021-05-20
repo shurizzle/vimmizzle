@@ -114,7 +114,7 @@ install_python() {
 
 install_extra() {
   if is_macos; then
-    for pkg in bat ripgrep the_silver_searcher fzf watchman; do
+    for pkg in bat ripgrep the_silver_searcher fzf watchman git-delta; do
       if ! brew ls --versions "$pkg" >/dev/null 2>/dev/null; then
         brew install "$pkg"
       fi
