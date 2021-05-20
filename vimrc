@@ -233,7 +233,10 @@ let g:coc_explorer_global_presets = {
             \   }
             \ }
 
-autocmd StdinReadPre * let g:isReadingFromStdin = 1
+aug stdin
+  au!
+  au StdinReadPre * let g:isReadingFromStdin = 1
+aug END
 function! ProjectStart()
   let has_root = !empty(FindRootDirectory()) " check if it is a project
 
@@ -246,18 +249,24 @@ function! ProjectStart()
     call coc#rpc#notify('runCommand', ['explorer'])
   endif
 endfunction
-autocmd VimEnter * call ProjectStart()
+au VimEnter * call ProjectStart()
 
 nnoremap <silent> <space>e :CocCommand explorer<CR>
 nnoremap <silent> <space>ef :CocCommand explorer --preset floating<CR>
 nnoremap <silent> <space>et :CocCommand explorer --preset tab<CR>
-autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+aug explorer
+  au!
+  au BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+aug END
 
 map t :tabnew<CR>
 map <C-n> :tabn<CR>
 map <C-p> :tabp<CR>
 
-autocmd BufWritePre * :%s/\s\+$//e
+aug removetrailingspaces
+  au!
+  au BufWritePre * :%s/\s\+$//e
+aug END
 
 " rust
 let g:rustfmt_autosave = 1
@@ -322,7 +331,10 @@ xmap ic <Plug>(coc-classobj-i)
 omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
-autocmd CursorHold * silent call CocActionAsync('highlight')
+aug highlight
+  au!
+  au CursorHold * silent call CocActionAsync('highlight')
+aug END
 
 " Execute macro on each line if in visual mode
 function! ExecuteMacroOverVisualRange()
