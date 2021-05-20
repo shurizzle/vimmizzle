@@ -24,7 +24,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
 
 " ui
-Plug 'cocopon/iceberg.vim'
+Plug 'arcticicestudio/nord-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
@@ -106,8 +106,8 @@ if $TERM ==# 'xterm-kitty'
   endif
 endif
 
-if HasColorscheme('iceberg')
-  colo iceberg
+if HasColorscheme('nord')
+  colo nord
 endif
 
 set exrc
