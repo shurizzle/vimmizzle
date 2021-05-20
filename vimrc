@@ -57,12 +57,7 @@ if executable('php') && executable('composer')
   Plug 'yaegassy/coc-php-cs-fixer', {'do': 'yarn install --frozen-lockfile'}
   Plug 'jwalton512/vim-blade'
   Plug 'yaegassy/coc-blade-linter', {'do': 'yarn install --frozen-lockfile'}
-  " Fix blade-formatter compilation in macOS
-  if has('mac') || has('macvim') || has('macunix') || has('gui_macvim')
-    Plug 'yaegassy/coc-blade-formatter', {'do': 'env CXXFLAGS=-std=c++17 yarn install --frozen-lockfile && env CXXFLAGS=-std=c++17 npm run oniguruma:rebuild'}
-  else
-    Plug 'yaegassy/coc-blade-formatter', {'do': 'yarn install --frozen-lockfile && npm run oniguruma:rebuild'}
-  endif
+  Plug 'shurizzle/coc-blade-formatter2', {'do': 'yarn install --frozen-lockfile'}
 endif
 
 " typescript
@@ -176,18 +171,11 @@ if !empty(glob('~/.vim/plugged/coc.nvim'))
               \     'typescriptreact',
               \     'json',
               \     'php',
+              \     'blade',
               \     'typescript.tsx',
               \     'graphql'
               \   ]
               \ })
-
-  " We have a timeout in coc's formatOnSaveFiletypes
-  function! AutoFormat()
-    if &filetype ==# 'blade'
-      call CocAction('format')
-    endif
-  endfunction
-  autocmd BufWritePre * call AutoFormat()
 
   " Explorer
   call coc#config('explorer', {
