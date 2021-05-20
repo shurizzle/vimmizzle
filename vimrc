@@ -146,18 +146,9 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 function! AirlineInit()
   let spc = g:airline_symbols.space
-  call airline#parts#define('linenr', {
-              \   'raw': '%{g:airline_symbols.linenr}%l',
-              \   'accent': 'normal'
-              \ })
-  call airline#parts#define('maxlinenr', {
-              \   'raw': '/%L',
-              \   'accent': 'normal'
-              \ })
-  call airline#parts#define('colnr', {
-              \   'raw': ':%v',
-              \   'accent': 'normal'
-              \ })
+  call airline#parts#define_raw('linenr', '%{g:airline_symbols.linenr}%l')
+  call airline#parts#define_raw('maxlinenr', '/%L')
+  call airline#parts#define_raw('colnr', ':%v')
   if airline#util#winwidth() > 79
     let g:airline_section_z = airline#section#create(['windowswap',
                 \ 'obsession', 'linenr', 'colnr', 'maxlinenr', spc.'%p%%'])
