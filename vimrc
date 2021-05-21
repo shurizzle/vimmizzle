@@ -237,6 +237,7 @@ aug stdin
   au!
   au StdinReadPre * let g:isReadingFromStdin = 1
 aug END
+let loaded_netrwPlugin = 1 " disable netrw
 function! ProjectStart()
   let has_root = !empty(FindRootDirectory()) " check if it is a project
 
