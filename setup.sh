@@ -147,13 +147,44 @@ download() {
   fi
 }
 
-install_delta() {
-  if ! is_command delta; then
+get_stdout() {
+  if is_command wget; then
+    wget -O- "$1"
+  else
+    curl "$1"
+  fi
+}
+
+install_jq() {
+  if ! is_command jq; then
     if is_macos; then
-      brew install git-delta
+      brew install jq
     elif is_debian; then
+      sudo apt-get install jq
+    fi
+  fi
+}
+
+gh_latest_release() {
+  install_jq
+  get_stdout "https://api.github.com/repos/${1}/releases/latest" | jq -r '.name'
+}
+
+delta_ver() {
+  delta --version | cut -d' ' -f2- -
+}
+
+install_delta() {
+  if is_macos; then
+    if ! is_command delta; then
+      brew install git-delta
+    fi
+  elif is_debian; then
+    local repo="dandavison/delta"
+    local rel="$(gh_latest_release "$repo")"
+    if (! is_command delta) || [ "$(delta_ver)" != "$rel" ]; then
       local tmp="$(mktemp XXXXXXXXXXXXXXXXXXXXXXXXXXXXX.deb)"
-      if download 'https://github.com/dandavison/delta/releases/download/0.7.1/git-delta-musl_0.7.1_amd64.deb' "$tmp"; then
+      if download "https://github.com/${repo}/releases/download/${rel}/git-delta-musl_${rel}_amd64.deb" "$tmp"; then
         if sudo dpkg -i "$tmp"; then
           local code=$?
         else
