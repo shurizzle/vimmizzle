@@ -29,7 +29,7 @@ is_command() {
 }
 
 if is_linux; then
-  if is_command apt-get; then
+  if is_command apt; then
     is_debian() {
       return 0
     }
@@ -45,7 +45,7 @@ install_curl() {
     if is_macos; then
       brew install curl
     elif is_debian; then
-      sudo apt-get install -y curl
+      sudo apt install -y curl
     fi
   fi
 }
@@ -55,7 +55,7 @@ install_git() {
     if is_macos; then
       brew install git
     elif is_debian; then
-      sudo apt-get install -y git
+      sudo apt install -y git
     fi
   fi
 }
@@ -80,7 +80,7 @@ install_npm() {
     if is_macos; then
       brew install node
     elif is_debian; then
-      sudo apt-get install -y nodejs
+      sudo apt install -y nodejs
     fi
   fi
 }
@@ -105,7 +105,7 @@ install_python3() {
     if is_macos; then
       brew install python
     elif is_debian; then
-      sudo apt-get install -y python3 python3-pip
+      sudo apt install -y python3 python3-pip
     fi
   fi
 }
@@ -133,7 +133,7 @@ install_composer() {
       if is_macos; then
         brew install composer
       else
-        sudo apt-get install -y composer
+        sudo apt install -y composer
       fi
     fi
   fi
@@ -160,7 +160,7 @@ install_jq() {
     if is_macos; then
       brew install jq
     elif is_debian; then
-      sudo apt-get install jq
+      sudo apt install -y jq
     fi
   fi
 }
@@ -209,7 +209,7 @@ install_extra() {
       fi
     done
   elif is_debian; then
-    sudo apt-get install -y bat ripgrep silversearcher-ag fzf watchman
+    sudo apt install -y bat ripgrep silversearcher-ag fzf watchman
   fi
   npm_install eslint
   install_composer
@@ -218,7 +218,7 @@ install_extra() {
 
 install_neovim_gem() {
   if is_debian; then
-    sudo apt-get install -y ruby-dev build-essential
+    sudo apt install -y ruby-dev build-essential
   fi
 
   if is_command gem; then
