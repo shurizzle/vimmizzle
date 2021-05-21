@@ -64,6 +64,7 @@ endif
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'fannheyward/coc-styled-components', {'do': 'yarn install --frozen-lockfile'}
 
 " rust
 Plug 'cespare/vim-toml'
