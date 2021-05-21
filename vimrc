@@ -263,6 +263,8 @@ function! ProjectStart()
 endfunction
 au VimEnter * call ProjectStart()
 
+command! -bang -nargs=? -complete=dir F call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
 nnoremap <silent> <space>e :CocCommand explorer<CR>
 nnoremap <silent> <space>ef :CocCommand explorer --preset floating<CR>
 nnoremap <silent> <space>et :CocCommand explorer --preset tab<CR>
