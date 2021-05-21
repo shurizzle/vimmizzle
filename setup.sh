@@ -76,13 +76,13 @@ install_yarn() {
       brew install yarn
     elif is_debian; then
       install_npm
-      sudo npm install --global yarn
+      npm install --global yarn
     fi
   fi
 }
 
 install_pynvim() {
-  sudo npm install --global neovim
+  npm install --global neovim
 }
 
 install_python3() {
@@ -122,6 +122,7 @@ install_extra() {
   elif is_debian; then
     sudo apt-get install -y bat ripgrep silversearcher-ag fzf watchman
   fi
+  npm install eslint
 }
 
 for py in '' 2 2.7 2.6 3 3.9 3.8 3.7 3.6 3.5 3.4 3.3; do
