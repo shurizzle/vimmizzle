@@ -60,6 +60,21 @@ install_git() {
   fi
 }
 
+npm_install() {
+  if is_macos; then
+    npm install -g "$@"
+  else
+    case "$(which npm)" in
+      /usr/bin/*|/bin/*)
+        sudo npm install -g "$@"
+        ;;
+      *)
+        npm install -g "$@"
+        ;;
+    esac
+  fi
+}
+
 install_npm() {
   if ! is_command npm; then
     if is_macos; then
@@ -76,13 +91,13 @@ install_yarn() {
       brew install yarn
     elif is_debian; then
       install_npm
-      npm install --global yarn
+      npm_install --global yarn
     fi
   fi
 }
 
 install_pynvim() {
-  npm install --global neovim
+  npm_install --global neovim
 }
 
 install_python3() {
@@ -112,9 +127,52 @@ install_python() {
   fi
 }
 
+install_composer() {
+  if ! is_command composer; then
+    if is_command php; then
+      if is_macos; then
+        brew install composer
+      else
+        sudo apt-get install -y composer
+      fi
+    fi
+  fi
+}
+
+download() {
+  if is_command wget; then
+    wget -O "$2" "$1"
+  else
+    curl -o "$2" "$1"
+  fi
+}
+
+install_delta() {
+  if ! is_command delta; then
+    if is_macos; then
+      brew install git-delta
+    elif is_debian; then
+      local tmp="$(mktemp XXXXXXXXXXXXXXXXXXXXXXXXXXXXX.deb)"
+      if download 'https://github.com/dandavison/delta/releases/download/0.7.1/git-delta-musl_0.7.1_amd64.deb' "$tmp"; then
+        if sudo dpkg -i "$tmp"; then
+          local code=$?
+        else
+          local code=$?
+        fi
+
+        rm -f "$tmp"
+        return $code
+      else
+        rm -f "$tmp"
+        return 1
+      fi
+    fi
+  fi
+}
+
 install_extra() {
   if is_macos; then
-    for pkg in bat ripgrep the_silver_searcher fzf watchman git-delta; do
+    for pkg in bat ripgrep the_silver_searcher fzf watchman; do
       if ! brew ls --versions "$pkg" >/dev/null 2>/dev/null; then
         brew install "$pkg"
       fi
@@ -122,7 +180,19 @@ install_extra() {
   elif is_debian; then
     sudo apt-get install -y bat ripgrep silversearcher-ag fzf watchman
   fi
-  npm install eslint
+  npm_install eslint
+  install_composer
+  install_delta
+}
+
+install_neovim_gem() {
+  if is_debian; then
+    sudo apt-get install -y ruby-dev build-essential
+  fi
+
+  if is_command gem; then
+    gem install --user neovim
+  fi
 }
 
 for py in '' 2 2.7 2.6 3 3.9 3.8 3.7 3.6 3.5 3.4 3.3; do
