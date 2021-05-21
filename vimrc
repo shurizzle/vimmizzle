@@ -239,14 +239,25 @@ aug stdin
 aug END
 let loaded_netrwPlugin = 1 " disable netrw
 function! ProjectStart()
-  let has_root = !empty(FindRootDirectory()) " check if it is a project
+  " if user has passed a parameter and it's a directory just use it has the
+  " project folder, else use vim-rooter
+  if argc() ==# 1 && isdirectory(argv(0))
+    execute 'cd' fnameescape(argv(0))
+    bdelete
+    let l:has_root = v:true
+    let l:has_params = v:false
+  else
+      let l:has_root = !empty(FindRootDirectory()) " check if it is a project
+      let l:has_params = !!argc()
 
-  Rooter " start rooter
+      Rooter " start rooter
+  endif
+
   call coc#rpc#start_server() " start coc
 
   " open coc-explorer if I'm in a project and vim is opened without arguments
-  " nor a stdin pipe
-  if has_root && !argc() && !exists('g:isReadingFromStdin') " if is project
+  " or only a directory and stdin is not a pipe
+  if l:has_root && !l:has_params && !exists('g:isReadingFromStdin') " if is project
     call coc#rpc#notify('runCommand', ['explorer'])
   endif
 endfunction
