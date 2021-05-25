@@ -106,7 +106,7 @@ if HasColorscheme('nord')
   colo nord
 endif
 
-set exrc
+set noexrc
 set secure
 set viminfo+=!
 set clipboard+=unnamedplus
@@ -252,6 +252,10 @@ function! ProjectStart()
       let l:has_params = !!argc()
 
       Rooter " start rooter
+  endif
+
+  if filereadable('.vim/vimrc') && expand('.vim/vimrc') !=# $MYVIMRC
+    source .vim/vimrc
   endif
 
   call coc#rpc#start_server() " start coc
