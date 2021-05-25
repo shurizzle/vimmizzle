@@ -71,6 +71,9 @@ Plug 'cespare/vim-toml'
 Plug 'rust-lang/rust.vim'
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 
+" nix
+Plug 'LnL7/vim-nix'
+
 call plug#end()
 
 " vim-plug is managing itself as a plugin so disable PlugUpgrade
@@ -234,6 +237,14 @@ let g:coc_explorer_global_presets = {
             \   }
             \ }
 
+" Coc rnix LSP
+if !empty(exepath('rnix-lsp'))
+  call coc#config('languageserver.nix', {
+    \   'command': 'rnix-lsp',
+    \   'filetypes': ['nix'],
+    \ })
+endif
+
 aug stdin
   au!
   au StdinReadPre * let g:isReadingFromStdin = 1
@@ -254,8 +265,9 @@ function! ProjectStart()
       Rooter " start rooter
   endif
 
-  if filereadable('.vim/vimrc') && expand('.vim/vimrc') !=# $MYVIMRC
-    source .vim/vimrc
+  let l:local_vimrc = fnamemodify(resolve('.vim/vimrc'), ':p')
+  if filereadable(l:local_vimrc) && l:local_vimrc !=# fnamemodify(resolve($MYVIMRC), ':p')
+    exe 'source ' . l:local_vimrc
   endif
 
   call coc#rpc#start_server() " start coc
