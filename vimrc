@@ -130,6 +130,7 @@ set nobackup
 set nowritebackup
 set noswapfile
 set noundofile
+set splitbelow
 
 set list listchars=tab:\ ·,trail:×,nbsp:%,eol:·,extends:»,precedes:«
 
