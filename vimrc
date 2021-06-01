@@ -16,8 +16,8 @@ if !has('nvim')
 endif
 
 " Plugins
-
 Plug 'airblade/vim-rooter'
+Plug 'MarcWeber/vim-addon-local-vimrc'
 
 " Semantic language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -38,6 +38,9 @@ Plug 'tpope/vim-surround'
 Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
 Plug 'editorconfig/editorconfig-vim'
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+
+" Markdown
+Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
 
 " viml
 Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
