@@ -30,6 +30,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
+Plug 'junegunn/goyo.vim'
 
 " lazyness
 Plug 'tpope/vim-repeat'
