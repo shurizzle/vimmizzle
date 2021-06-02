@@ -135,6 +135,7 @@ set nowritebackup
 set noswapfile
 set noundofile
 set splitbelow
+autocmd FileType php set iskeyword+=$
 
 set list listchars=tab:\ ·,trail:×,nbsp:%,eol:·,extends:»,precedes:«
 
