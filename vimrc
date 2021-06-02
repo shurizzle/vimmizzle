@@ -313,6 +313,10 @@ let g:rustfmt_fail_silently = 0
 nmap <silent><Leader>r <Plug>(coc-range-select)
 xmap <silent><Leader>r <Plug>(coc-range-select)
 
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
