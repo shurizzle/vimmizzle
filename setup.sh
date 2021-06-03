@@ -212,6 +212,7 @@ install_extra() {
     sudo apt install -y bat ripgrep silversearcher-ag fzf watchman
   fi
   npm_install eslint
+  npm_install instant-markdown-d
   install_composer
   install_delta
 }
