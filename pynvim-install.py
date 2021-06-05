@@ -4,7 +4,10 @@ except:
     try:
         import pip
     except:
-        import urllib2
+        try:
+            from urllib.request import urlopen
+        except ImportError:
+            from urllib2 import urlopen
         import sys
 
         this_python = sys.version_info[:2]
@@ -14,8 +17,7 @@ except:
         else:
             url = "https://bootstrap.pypa.io/get-pip.py"
 
-        print(url)
-        gpf = urllib2.urlopen(url)
+        gpf = urlopen(url)
         try:
             getpip = gpf.read()
         finally:
