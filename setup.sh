@@ -227,6 +227,10 @@ install_neovim_gem() {
   fi
 }
 
+if [ -d /etc/nixos ]; then
+  npm set prefix ~/.npm-global
+fi
+
 for py in '' 2 2.7 2.6 3 3.9 3.8 3.7 3.6 3.5 3.4 3.3; do
   pycmd="python${py}"
   if is_command "$pycmd"; then
