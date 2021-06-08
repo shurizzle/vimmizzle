@@ -38,6 +38,16 @@ if is_linux; then
       return 1
     }
   fi
+
+  if is_command pacman; then
+    is_arch() {
+      return 0
+    }
+  else
+    is_arch() {
+      return 1
+    }
+  fi
 fi
 
 install_curl() {
@@ -46,6 +56,8 @@ install_curl() {
       brew install curl
     elif is_debian; then
       sudo apt install -y curl
+    elif is_arch; then
+      sudo pacman -S curl
     fi
   fi
 }
@@ -56,6 +68,8 @@ install_git() {
       brew install git
     elif is_debian; then
       sudo apt install -y git
+    elif is_arch; then
+      sudo pacman -S git
     fi
   fi
 }
@@ -81,6 +95,8 @@ install_npm() {
       brew install node
     elif is_debian; then
       sudo apt install -y nodejs
+    elif is_arch; then
+      sudo pacman -S nodejs npm
     fi
   fi
 }
@@ -92,6 +108,8 @@ install_yarn() {
     elif is_debian; then
       install_npm
       npm_install --global yarn
+    elif is_arch; then
+      sudo pacman -S yarn
     fi
   fi
 }
@@ -106,6 +124,8 @@ install_python3() {
       brew install python
     elif is_debian; then
       sudo apt install -y python3 python3-pip
+    elif is_arch; then
+      sudo pacman -S python python-pip
     fi
   fi
 }
@@ -132,8 +152,10 @@ install_composer() {
     if is_command php; then
       if is_macos; then
         brew install composer
-      else
+      elif is_debian; then
         sudo apt install -y composer
+      elif is_arch; then
+        sudo pacman -S composer
       fi
     fi
   fi
@@ -161,6 +183,8 @@ install_jq() {
       brew install jq
     elif is_debian; then
       sudo apt install -y jq
+    elif is_arch; then
+      sudo pacman -S jq
     fi
   fi
 }
@@ -198,6 +222,8 @@ install_delta() {
         return 1
       fi
     fi
+  elif is_arch; then
+    yay -S git-delta
   fi
 }
 
@@ -210,6 +236,8 @@ install_extra() {
     done
   elif is_debian; then
     sudo apt install -y bat ripgrep silversearcher-ag fzf watchman
+  elif is_arch; then
+    yay -S bat ripgrep the_silver_searcher fzf watchman
   fi
   npm_install eslint
   npm_install instant-markdown-d
