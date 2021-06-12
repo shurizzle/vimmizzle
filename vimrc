@@ -78,6 +78,9 @@ Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 " nix
 Plug 'LnL7/vim-nix'
 
+" c
+Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
+
 call plug#end()
 
 " vim-plug is managing itself as a plugin so disable PlugUpgrade
@@ -183,7 +186,8 @@ if !empty(glob('~/.vim/plugged/coc.nvim'))
               \     'php',
               \     'blade',
               \     'typescript.tsx',
-              \     'graphql'
+              \     'graphql',
+              \     'c'
               \   ]
               \ })
 
