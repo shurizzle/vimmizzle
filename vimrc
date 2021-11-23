@@ -70,6 +70,9 @@ Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-styled-components', {'do': 'yarn install --frozen-lockfile'}
 
+" deno
+Plug 'fannheyward/coc-deno'
+
 " rust
 Plug 'cespare/vim-toml'
 Plug 'rust-lang/rust.vim'
