@@ -60,8 +60,7 @@ if executable('php') && executable('composer')
   Plug 'phpactor/coc-phpactor', {'do': 'yarn install --frozen-lockfile'}
   Plug 'yaegassy/coc-php-cs-fixer', {'do': 'yarn install --frozen-lockfile'}
   Plug 'jwalton512/vim-blade'
-  Plug 'yaegassy/coc-blade-linter', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'shurizzle/coc-blade-formatter2', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'yaegassy/coc-blade', {'do': 'yarn install --frozen-lockfile'}
 endif
 
 " typescript
