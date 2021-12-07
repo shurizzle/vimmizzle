@@ -420,38 +420,43 @@ vnoremap <Home> :<C-u>echo "No home for you!"<CR>
 inoremap <Home> <C-o>:echo "No home for you!"<CR>
 
 if executable('curl')
-    " Generic upload service
-    function! PasteService(name, cmd, line1, line2) abort
-      let l:text = join(getline(a:line1, a:line2), "\n")
-      redraw | echon 'Posting to ' . a:name . '... '
+  " Generic upload service
+  function! PasteService(name, cmd, line1, line2) abort
+    let l:text = join(getline(a:line1, a:line2), "\n")
+    redraw | echon 'Posting to ' . a:name . '... '
 
-      let l:url = system(a:cmd, l:text)[0:-2]
-      redraw
+    let l:url = system(a:cmd, l:text)[0:-2]
+    redraw
+    if empty(l:url)
+      let l:url = system("curl -s http://google.com")
       if empty(l:url)
-        let l:url = system("curl -s http://google.com")
-        if empty(l:url)
-          echohl WarningMsg|echomsg 'Error: no network available'
-        else
-          echohl WarningMsg|echomsg 'Error: ' . a:name . ' has been shutdown or altered its api'
-        endif
-        echohl None
+        echohl WarningMsg|echomsg 'Error: no network available'
       else
-        call setreg('+', l:url)
-        echomsg 'Done: ' . l:url
+        echohl WarningMsg|echomsg 'Error: ' . a:name . ' has been shutdown or altered its api'
       endif
-    endfunction
+      echohl None
+    else
+      call setreg('+', l:url)
+      echomsg 'Done: ' . l:url
+    endif
+  endfunction
 
-    " sprunge command
-    command! -range=% -nargs=0 Sprunge call PasteService('sprunge.us', 'curl -s -F "sprunge=<-" http://sprunge.us', <line1>, <line2>)
+  " sprunge command
+  command! -range=% -nargs=0 Sprunge call PasteService('sprunge.us', 'curl -s -F "sprunge=<-" http://sprunge.us', <line1>, <line2>)
 
-    " paste command
-    command! -range=% -nargs=0 Paste call PasteService('paste.rs', 'curl -s --data-binary @- https://paste.rs', <line1>, <line2>)
+  " paste command
+  command! -range=% -nargs=0 Paste call PasteService('paste.rs', 'curl -s --data-binary @- https://paste.rs', <line1>, <line2>)
 endif
 
+syntax on
 if has('nvim-0.5')
-    lua <<EOF
+  lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_insmalled = {'rust', 'php', 'html', 'css', 'json', 'jsonc', 'toml', 'javascript', 'typescript', 'tsx', 'vim', 'yaml', 'lua', 'nix'},
+  ensure_installed = {
+    'rust', 'php', 'html', 'css', 'scss', 'json', 'jsonc', 'toml',
+    'javascript', 'typescript', 'tsx', 'vim', 'yaml', 'lua', 'nix', 'comment',
+    'regex', 'dockerfile', 'bash'
+  },
   sync_install = false,
   highlight = {
     enable = true,
@@ -472,11 +477,10 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-    set foldmethod=expr
-    set foldexpr=nvim_treesitter#foldexpr()
+  set foldmethod=expr
+  set foldexpr=nvim_treesitter#foldexpr()
 else
-    syntax on
-    filetype plugin indent on
+  filetype plugin indent on
 endif
 
 " vim:set ft=vim sw=2 sts=2 et:
