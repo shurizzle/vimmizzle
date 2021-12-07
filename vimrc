@@ -451,7 +451,7 @@ endif
 if has('nvim-0.5')
     lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_insmalled = {'rust', 'php', 'html', 'css', 'json', 'jsonc', 'toml', 'javascript', 'typescript', 'tsx', 'vim', 'yaml', 'lua'},
+  ensure_insmalled = {'rust', 'php', 'html', 'css', 'json', 'jsonc', 'toml', 'javascript', 'typescript', 'tsx', 'vim', 'yaml', 'lua', 'nix'},
   sync_install = false,
   highlight = {
     enable = true,
