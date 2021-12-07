@@ -442,7 +442,7 @@ endif
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {'rust', 'php', 'html', 'css', 'json', 'jsonc', 'toml', 'typescript', 'tsx', 'vim', 'yaml', 'lua'},
+  ensure_insmalled = {'rust', 'php', 'html', 'css', 'json', 'jsonc', 'toml', 'javascript', 'typescript', 'tsx', 'vim', 'yaml', 'lua'},
   sync_install = false,
   highlight = {
     enable = true,
