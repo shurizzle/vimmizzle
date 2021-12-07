@@ -22,6 +22,7 @@ Plug 'MarcWeber/vim-addon-local-vimrc'
 " Semantic language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " ui
 Plug 'arcticicestudio/nord-vim'
@@ -95,9 +96,6 @@ function! HasColorscheme(name) abort
     let pat = 'colors/'.a:name.'.vim'
     return !empty(globpath(&rtp, pat))
 endfunction
-
-syntax enable
-filetype plugin indent on
 
 let mapleader = ","
 
@@ -441,5 +439,31 @@ if executable('curl')
     " paste command
     command! -range=% -nargs=0 Paste call PasteService('paste.rs', 'curl -s --data-binary @- https://paste.rs', <line1>, <line2>)
 endif
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {'rust', 'php', 'html', 'css', 'json', 'jsonc', 'toml', 'typescript', 'tsx', 'vim', 'yaml', 'lua'},
+  sync_install = false,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+  indent = {
+    enable = true
+  }
+}
+EOF
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
 " vim:set ft=vim sw=2 sts=2 et:
