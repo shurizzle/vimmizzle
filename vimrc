@@ -22,7 +22,9 @@ Plug 'MarcWeber/vim-addon-local-vimrc'
 " Semantic language support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+if has('nvim-0.5')
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+endif
 
 " ui
 Plug 'arcticicestudio/nord-vim'
@@ -65,7 +67,9 @@ if executable('php') && executable('composer')
 endif
 
 " typescript
-Plug 'HerringtonDarkholme/yats.vim'
+if !has('nvim-0.5')
+  Plug 'HerringtonDarkholme/yats.vim'
+endif
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-styled-components', {'do': 'yarn install --frozen-lockfile'}
@@ -74,12 +78,16 @@ Plug 'fannheyward/coc-styled-components', {'do': 'yarn install --frozen-lockfile
 Plug 'fannheyward/coc-deno'
 
 " rust
-Plug 'cespare/vim-toml'
-Plug 'rust-lang/rust.vim'
+if !has('nvim-0.5')
+    Plug 'cespare/vim-toml'
+    Plug 'rust-lang/rust.vim'
+endif
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 
 " nix
-Plug 'LnL7/vim-nix'
+if !has('nvim-0.5')
+    Plug 'LnL7/vim-nix'
+endif
 
 " c
 Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
@@ -440,7 +448,8 @@ if executable('curl')
     command! -range=% -nargs=0 Paste call PasteService('paste.rs', 'curl -s --data-binary @- https://paste.rs', <line1>, <line2>)
 endif
 
-lua <<EOF
+if has('nvim-0.5')
+    lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_insmalled = {'rust', 'php', 'html', 'css', 'json', 'jsonc', 'toml', 'javascript', 'typescript', 'tsx', 'vim', 'yaml', 'lua'},
   sync_install = false,
@@ -463,7 +472,11 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+    set foldmethod=expr
+    set foldexpr=nvim_treesitter#foldexpr()
+else
+    syntax on
+    filetype plugin indent on
+endif
 
 " vim:set ft=vim sw=2 sts=2 et:
