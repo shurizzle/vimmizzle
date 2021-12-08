@@ -78,10 +78,8 @@ Plug 'fannheyward/coc-styled-components', {'do': 'yarn install --frozen-lockfile
 Plug 'fannheyward/coc-deno'
 
 " rust
-if !has('nvim-0.5')
-    Plug 'cespare/vim-toml'
-    Plug 'rust-lang/rust.vim'
-endif
+Plug 'cespare/vim-toml'
+Plug 'rust-lang/rust.vim'
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 
 " nix
@@ -449,6 +447,7 @@ if executable('curl')
 endif
 
 syntax on
+filetype plugin indent on
 if has('nvim-0.5')
   lua <<EOF
 require'nvim-treesitter.configs'.setup {
@@ -479,26 +478,6 @@ EOF
 
   set foldmethod=expr
   set foldexpr=nvim_treesitter#foldexpr()
-else
-  filetype plugin indent on
-endif
-
-if has('nvim-0.5')
-  function! Cargo(args) abort
-      let args = substitute(a:args, '\s\+$', '', '')
-      if has('terminal')
-        let cmd = 'terminal'
-      elseif has('nvim')
-        let cmd = 'noautocmd new | terminal'
-      else
-        let cmd = '!'
-      endif
-      echo cmd
-
-      execute cmd 'cargo' args
-  endfunction
-
-  command! -nargs=+ Cargo call Cargo(<q-args>)
 endif
 
 " vim:set ft=vim sw=2 sts=2 et:
