@@ -483,4 +483,22 @@ else
   filetype plugin indent on
 endif
 
+if has('nvim-0.5')
+  function! Cargo(args) abort
+      let args = substitute(a:args, '\s\+$', '', '')
+      if has('terminal')
+        let cmd = 'terminal'
+      elseif has('nvim')
+        let cmd = 'noautocmd new | terminal'
+      else
+        let cmd = '!'
+      endif
+      echo cmd
+
+      execute cmd 'cargo' args
+  endfunction
+
+  command! -nargs=+ Cargo call Cargo(<q-args>)
+endif
+
 " vim:set ft=vim sw=2 sts=2 et:
