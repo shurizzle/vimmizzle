@@ -1,7 +1,11 @@
 set nocompatible
 filetype off
 
-let g:vimhome = expand('~/.vim')
+if has('win32')
+  let g:vimhome = expand('~/_vim')
+else
+  let g:vimhome = expand('~/.vim')
+endif
 
 exe 'set rtp+='.fnameescape(g:vimhome.'/plugged/vim-plug/')
 runtime plug.vim
