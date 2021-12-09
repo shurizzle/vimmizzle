@@ -1,12 +1,14 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/plugged/vim-plug/
+let g:vimhome = expand('~/.vim')
+
+exe 'set rtp+='.fnameescape(g:vimhome.'/plugged/vim-plug/')
 runtime plug.vim
 
 let g:plug_url_format = 'git@github.com:%s.git'
 
-call plug#begin('~/.vim/plugged')
+call plug#begin(g:vimhome.'/plugged')
 
 Plug 'junegunn/vim-plug'
 
@@ -183,7 +185,7 @@ let g:rooter_manual_only = 1
 
 " Coc
 let g:coc_start_at_startup = 0
-if !empty(glob('~/.vim/plugged/coc.nvim'))
+if !empty(glob(g:vimhome.'/plugged/coc.nvim'))
   call coc#config('suggest', {'noselect': v:false})
   call coc#config('coc', {
               \   'preferences.formatOnSaveFiletypes': [
@@ -212,7 +214,7 @@ if !empty(glob('~/.vim/plugged/coc.nvim'))
   if executable('php') && executable('composer')
     call coc#config('phpactor', {
           \   'enable': v:true,
-          \   'path': '~/.vim/plugged/phpactor/bin/phpactor'
+          \   'path': g:vimhome.'/plugged/phpactor/bin/phpactor'
           \ })
 
     call coc#config('php-cs-fixer', {
@@ -224,7 +226,7 @@ endif
 " explorer
 let g:coc_explorer_global_presets = {
             \   '.vim': {
-            \     'root-uri': '~/.vim',
+            \     'root-uri': g:vimhome,
             \   },
             \   'tab': {
             \     'position': 'tab',
@@ -284,7 +286,7 @@ function! ProjectStart()
       Rooter " start rooter
   endif
 
-  let l:local_vimrc = fnamemodify(resolve('.vim/vimrc'), ':p')
+  let l:local_vimrc = fnamemodify(resolve(g:vimhome.'/vimrc'), ':p')
   if filereadable(l:local_vimrc) && l:local_vimrc !=# fnamemodify(resolve($MYVIMRC), ':p')
     exe 'source ' . l:local_vimrc
   endif
