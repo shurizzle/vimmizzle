@@ -78,8 +78,10 @@ Plug 'fannheyward/coc-styled-components', {'do': 'yarn install --frozen-lockfile
 Plug 'fannheyward/coc-deno'
 
 " rust
-Plug 'cespare/vim-toml'
-Plug 'rust-lang/rust.vim'
+if !has('nvim-0.5')
+  Plug 'cespare/vim-toml'
+  Plug 'rust-lang/rust.vim'
+endif
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 
 " nix
@@ -193,7 +195,8 @@ if !empty(glob('~/.vim/plugged/coc.nvim'))
               \     'blade',
               \     'typescript.tsx',
               \     'graphql',
-              \     'c'
+              \     'c',
+              \     'rust'
               \   ]
               \ })
 
@@ -316,8 +319,7 @@ aug removetrailingspaces
 aug END
 
 " rust
-let g:rustfmt_autosave = 1
-let g:rustfmt_emit_files = 1
+let g:rustfmt_autosave = 0
 let g:rustfmt_fail_silently = 0
 
 " Select range based on AST
@@ -478,6 +480,24 @@ EOF
 
   set foldmethod=expr
   set foldexpr=nvim_treesitter#foldexpr()
+endif
+
+if has('nvim-0.5')
+  function! Cargo(args) abort
+      let args = substitute(a:args, '\s\+$', '', '')
+      if has('terminal')
+        let cmd = 'terminal'
+      elseif has('nvim')
+        let cmd = 'noautocmd new | terminal'
+      else
+        let cmd = '!'
+      endif
+      echo cmd
+
+      execute cmd 'cargo' args
+  endfunction
+
+  command! -nargs=+ Cargo call Cargo(<q-args>)
 endif
 
 " vim:set ft=vim sw=2 sts=2 et:
