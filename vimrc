@@ -47,7 +47,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
 Plug 'editorconfig/editorconfig-vim'
-Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 
 " Markdown
 Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
@@ -76,6 +75,7 @@ endif
 if !has('nvim-0.5')
   Plug 'HerringtonDarkholme/yats.vim'
 endif
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-styled-components', {'do': 'yarn install --frozen-lockfile'}
@@ -338,6 +338,9 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
+
+vnoremap < <gv
+vnoremap > >gv
 
 " Navigations
 nmap <silent> tgd :<C-u>call CocAction('jumpDefinition', 'tab drop')<CR>
