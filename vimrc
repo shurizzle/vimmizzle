@@ -7,6 +7,7 @@ else
   let g:vimhome = expand('~/.vim')
 endif
 
+exe 'set rtp+='.fnameescape(g:vimhome)
 exe 'set rtp+='.fnameescape(g:vimhome.'/plugged/vim-plug/')
 runtime plug.vim
 
@@ -33,6 +34,7 @@ if has('nvim-0.5')
 endif
 
 " ui
+Plug 'mhinz/vim-startify'
 Plug 'arcticicestudio/nord-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -155,6 +157,9 @@ set splitbelow
 autocmd FileType php set iskeyword+=$
 
 set list listchars=tab:\ ·,trail:×,nbsp:%,eol:·,extends:»,precedes:«
+
+let g:startify_custom_header = startify#pad(['__     _____ __  __ __  __ ___ ___________     _____','\ \   / /_ _|  \/  |  \/  |_ _|__  /__  / |   | ____|',' \ \ / / | || |\/| | |\/| || |  / /  / /| |   |  _|','  \ V /  | || |  | | |  | || | / /_ / /_| |___| |___','   \_/  |___|_|  |_|_|  |_|___/____/____|_____|_____|'])
+let g:startify_center = v:true
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
@@ -295,6 +300,14 @@ function! ProjectStart()
   endif
 
   call coc#rpc#start_server() " start coc
+
+  if l:has_root
+    let g:startify_lists = [
+          \ { 'type': 'dir', 'header': startify#pad(['MRU '.getcwd()]) }
+        \ ]
+  else
+    let g:startify_lists = []
+  endif
 
   " open coc-explorer if I'm in a project and vim is opened without arguments
   " or only a directory and stdin is not a pipe
