@@ -342,8 +342,20 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
+" Reselect visual selection after indenting
 vnoremap < <gv
 vnoremap > >gv
+
+" Maintain the cursor position when yanking a visual selection
+" http://ddrscott.github.io/blog/2016/yank-without-jank/
+vnoremap y myy`y
+vnoremap Y myY`y
+
+" Paste replace visual selection without copying it
+vnoremap <leader>p "_dP
+
+" Make Y behave like the other capitals
+nnoremap Y y$
 
 " Navigations
 nmap <silent> tgd :<C-u>call CocAction('jumpDefinition', 'tab drop')<CR>
