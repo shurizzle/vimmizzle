@@ -225,6 +225,9 @@ if !empty(glob(g:vimhome.'/plugged/coc.nvim'))
           \   'enableFormatProvider': v:true
           \ })
   endif
+
+  " Add `:Format` command to format current buffer.
+  command! -nargs=0 Format :call CocAction('format':call     CocAction('fold')
 endif
 
 " explorer
