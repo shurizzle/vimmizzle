@@ -228,7 +228,7 @@ if !empty(glob(g:vimhome.'/plugged/coc.nvim'))
   endif
 
   " Add `:Format` command to format current buffer.
-  command! -nargs=0 Format :call CocAction('format':call     CocAction('fold')
+  command! -nargs=0 Format :call CocAction('format')
 endif
 
 " explorer
@@ -292,11 +292,6 @@ function! ProjectStart()
       let l:has_params = !!argc()
 
       Rooter " start rooter
-  endif
-
-  let l:local_vimrc = fnamemodify(resolve(g:vimhome.'/vimrc'), ':p')
-  if filereadable(l:local_vimrc) && l:local_vimrc !=# fnamemodify(resolve($MYVIMRC), ':p')
-    exe 'source ' . l:local_vimrc
   endif
 
   call coc#rpc#start_server() " start coc
