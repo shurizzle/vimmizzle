@@ -186,6 +186,7 @@ autocmd VimEnter * call AirlineInit()
 " rooter
 let g:rooter_silent_chdir = 1
 let g:rooter_manual_only = 1
+let g:rooter_patterns = ['.git', '_darcs', '.hg', '.bzr', '.svn', 'Makefile', 'package.json', 'Cargo.toml', 'composer.json']
 
 " Coc
 let g:coc_start_at_startup = 0
