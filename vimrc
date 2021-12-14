@@ -34,7 +34,9 @@ if has('nvim-0.5')
 endif
 
 " ui
-Plug 'mhinz/vim-startify'
+if has('nvim')
+  Plug 'glepnir/dashboard-nvim'
+endif
 Plug 'arcticicestudio/nord-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -158,8 +160,16 @@ autocmd FileType php set iskeyword+=$
 
 set list listchars=tab:\ ·,trail:×,nbsp:%,eol:·,extends:»,precedes:«
 
-let g:startify_custom_header = startify#pad(['__     _____ __  __ __  __ ___ ___________     _____','\ \   / /_ _|  \/  |  \/  |_ _|__  /__  / |   | ____|',' \ \ / / | || |\/| | |\/| || |  / /  / /| |   |  _|','  \ V /  | || |  | | |  | || | / /_ / /_| |___| |___','   \_/  |___|_|  |_|_|  |_|___/____/____|_____|_____|'])
-let g:startify_center = v:true
+let g:dashboard_default_executive ='fzf'
+let g:dashboard_custom_header =<< END
+           d8,                              d8,                 d8b
+          `8P                              `8P                  88P
+                                                               d88
+?88   d8P  88b  88bd8b,d88b   88bd8b,d88b   88bd88888P d88888P 888   d8888b
+d88  d8P'  88P  88P'`?8P'?8b  88P'`?8P'?8b  88P   d8P'    d8P' ?88  d8b_,dP
+?8b ,88'  d88  d88  d88  88P d88  d88  88P d88  d8P'    d8P'    88b 88b
+`?888P'  d88' d88' d88'  88bd88' d88'  88bd88' d88888P'd88888P'  88b`?888P'
+END
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
@@ -301,18 +311,10 @@ function! ProjectStart()
 
   call coc#rpc#start_server() " start coc
 
-  if l:has_root
-    let g:startify_lists = [
-          \ { 'type': 'dir', 'header': startify#pad(['MRU '.getcwd()]) }
-        \ ]
-  else
-    let g:startify_lists = []
-  endif
-
   " open coc-explorer if I'm in a project and vim is opened without arguments
   " or only a directory and stdin is not a pipe
   if l:has_root && !l:has_params && !exists('g:isReadingFromStdin') " if is project
-    call coc#rpc#notify('runCommand', ['explorer'])
+    CocCommand explorer --preset floatingLeftside
   endif
 endfunction
 au VimEnter * call ProjectStart()
