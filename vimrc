@@ -1,119 +1,160 @@
 set nocompatible
 filetype off
 
-if has('win32')
+if has('win32') || has('win64')
   let g:vimhome = expand('~/_vim')
 else
   let g:vimhome = expand('~/.vim')
 endif
 
-exe 'set rtp+='.fnameescape(g:vimhome)
-exe 'set rtp+='.fnameescape(g:vimhome.'/plugged/vim-plug/')
-runtime plug.vim
-
-let g:plug_url_format = 'git@github.com:%s.git'
-
-call plug#begin(g:vimhome.'/plugged')
-
-Plug 'junegunn/vim-plug'
-
-" vim shims
-if !has('nvim')
-  Plug 'roxma/vim-hug-neovim-rpc'
+if isdirectory(g:vimhome)
+  exe 'set rtp+='.fnameescape(g:vimhome)
 endif
 
-" Plugins
-Plug 'airblade/vim-rooter'
-Plug 'MarcWeber/vim-addon-local-vimrc'
+if isdirectory(g:vimhome.'/plugged/vim-plug')
+  exe 'set rtp+='.fnameescape(g:vimhome.'/plugged/vim-plug')
+  runtime plug.vim
 
-" Semantic language support
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-if has('nvim-0.5')
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  let g:plug_url_format = 'git@github.com:%s.git'
+
+  call plug#begin(g:vimhome.'/plugged')
+
+  Plug 'junegunn/vim-plug'
+
+  " vim shims
+  if !has('nvim')
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
+
+  " Plugins
+  Plug 'airblade/vim-rooter'
+  Plug 'MarcWeber/vim-addon-local-vimrc'
+
+  " Semantic language support
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+  if has('nvim-0.5')
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  endif
+
+  " ui
+  if has('nvim')
+    Plug 'glepnir/dashboard-nvim'
+  endif
+  Plug 'arcticicestudio/nord-vim'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+  Plug 'vim-airline/vim-airline'
+  Plug 'tpope/vim-fugitive'
+  Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'junegunn/goyo.vim'
+
+  " lazyness
+  Plug 'tpope/vim-repeat'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'tpope/vim-surround'
+  Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'editorconfig/editorconfig-vim'
+
+  " Markdown
+  Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
+
+  " viml
+  Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
+
+  " web
+  Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+
+  " php
+  if executable('php') && executable('composer')
+    Plug 'tpope/vim-dispatch'
+    Plug 'tpope/vim-projectionist'
+    Plug 'noahfrederick/vim-composer'
+    Plug 'noahfrederick/vim-laravel'
+    Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'}
+    Plug 'phpactor/coc-phpactor', {'do': 'yarn install --frozen-lockfile'}
+    Plug 'yaegassy/coc-php-cs-fixer', {'do': 'yarn install --frozen-lockfile'}
+    Plug 'jwalton512/vim-blade'
+    Plug 'yaegassy/coc-blade', {'do': 'yarn install --frozen-lockfile'}
+  endif
+
+  " typescript
+  if !has('nvim-0.5')
+    Plug 'HerringtonDarkholme/yats.vim'
+  endif
+  Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'fannheyward/coc-styled-components', {'do': 'yarn install --frozen-lockfile'}
+
+  " deno
+  Plug 'fannheyward/coc-deno'
+
+  " rust
+  if !has('nvim-0.5')
+    Plug 'cespare/vim-toml'
+    Plug 'rust-lang/rust.vim'
+  endif
+  Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
+
+  " nix
+  if !has('nvim-0.5')
+      Plug 'LnL7/vim-nix'
+  endif
+
+  " c
+  Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
+
+  call plug#end()
+
+  " vim-plug is managing itself as a plugin so disable PlugUpgrade
+  delc PlugUpgrade
 endif
-
-" ui
-if has('nvim')
-  Plug 'glepnir/dashboard-nvim'
-endif
-Plug 'arcticicestudio/nord-vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-fugitive'
-Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
-Plug 'junegunn/goyo.vim'
-
-" lazyness
-Plug 'tpope/vim-repeat'
-Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-surround'
-Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
-Plug 'editorconfig/editorconfig-vim'
-
-" Markdown
-Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
-
-" viml
-Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
-
-" web
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-
-" php
-if executable('php') && executable('composer')
-  Plug 'tpope/vim-dispatch'
-  Plug 'tpope/vim-projectionist'
-  Plug 'noahfrederick/vim-composer'
-  Plug 'noahfrederick/vim-laravel'
-  Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'}
-  Plug 'phpactor/coc-phpactor', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'yaegassy/coc-php-cs-fixer', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'jwalton512/vim-blade'
-  Plug 'yaegassy/coc-blade', {'do': 'yarn install --frozen-lockfile'}
-endif
-
-" typescript
-if !has('nvim-0.5')
-  Plug 'HerringtonDarkholme/yats.vim'
-endif
-Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'fannheyward/coc-styled-components', {'do': 'yarn install --frozen-lockfile'}
-
-" deno
-Plug 'fannheyward/coc-deno'
-
-" rust
-if !has('nvim-0.5')
-  Plug 'cespare/vim-toml'
-  Plug 'rust-lang/rust.vim'
-endif
-Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
-
-" nix
-if !has('nvim-0.5')
-    Plug 'LnL7/vim-nix'
-endif
-
-" c
-Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
-
-call plug#end()
-
-" vim-plug is managing itself as a plugin so disable PlugUpgrade
-delc PlugUpgrade
 
 " Reload vimrc if I'm working on it
 au BufWritePost * if resolve($MYVIMRC) ==# resolve(expand('%:p')) | source % | endif
 
+function! Colorschemes()
+  let colors = split(globpath(&rtp, "colors/*.vim"), "\n")
+  if has('packages')
+    let colors += split(globpath(&packpath, "pack/*/opt/*/colors/*.vim"), "\n")
+  endif
+
+  return uniq(map(colors, "fnamemodify(v:val, ':t:r')"))
+endfunction
+
 function! HasColorscheme(name) abort
     let pat = 'colors/'.a:name.'.vim'
-    return !empty(globpath(&rtp, pat))
+    return !empty(globpath(&rtp, pat)) || (has('packages') ? !empty(globpath(&packpath, 'pack/*/opt/*/'.pat)) : v:true)
 endfunction
+
+function! SetColorscheme(name) abort
+  if type(a:name) == v:t_list
+    for n in a:name
+      if HasColorscheme(n)
+        exe 'colo' n
+        return
+      endif
+    endfor
+  else
+    if HasColorscheme(a:name)
+      exe 'colo' a:name
+    endif
+  endif
+endfunction
+
+fu! ForceFunctionLoad(name)
+  try
+    exe 'call '.a:name.'()'
+  catch
+  endtry
+endfu
+
+fu! FunctionExists(name)
+  call ForceFunctionLoad(a:name)
+  return exists('*'.a:name)
+endfu
 
 let mapleader = ","
 
@@ -130,9 +171,7 @@ if $TERM ==# 'xterm-kitty'
   endif
 endif
 
-if HasColorscheme('nord')
-  colo nord
-endif
+call SetColorscheme(['nord', 'evening'])
 
 set noexrc
 set secure
@@ -182,19 +221,21 @@ let g:airline_powerline_fonts = 1
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 function! AirlineInit()
-  let spc = g:airline_symbols.space
-  call airline#parts#define_raw('linenr', '%{g:airline_symbols.linenr}%l')
-  call airline#parts#define_raw('maxlinenr', '/%L')
-  call airline#parts#define_raw('colnr', ':%v')
-  if airline#util#winwidth() > 79
-    let g:airline_section_z = airline#section#create(['windowswap',
-                \ 'obsession', 'linenr', 'colnr', 'maxlinenr', spc.'%p%%'])
-  else
-    let g:airline_section_z = airline#section#create(['linenr', 'colnr',
-                \ spc.'%p%%'])
-  endif
+  if get(g:, 'loaded_airline', 0)
+    let spc = g:airline_symbols.space
+    call airline#parts#define_raw('linenr', '%{g:airline_symbols.linenr}%l')
+    call airline#parts#define_raw('maxlinenr', '/%L')
+    call airline#parts#define_raw('colnr', ':%v')
+    if airline#util#winwidth() > 79
+      let g:airline_section_z = airline#section#create(['windowswap',
+                  \ 'obsession', 'linenr', 'colnr', 'maxlinenr', spc.'%p%%'])
+    else
+      let g:airline_section_z = airline#section#create(['linenr', 'colnr',
+                  \ spc.'%p%%'])
+    endif
 
-  call airline#update_statusline()
+    call airline#update_statusline()
+  endif
 endfunction
 autocmd VimEnter * call AirlineInit()
 
@@ -205,7 +246,7 @@ let g:rooter_patterns = ['.git', '_darcs', '.hg', '.bzr', '.svn', 'Makefile', 'p
 
 " Coc
 let g:coc_start_at_startup = 0
-if !empty(glob(g:vimhome.'/plugged/coc.nvim'))
+if FunctionExists('coc#config')
   call coc#config('suggest', {'noselect': v:false})
   call coc#config('coc', {
               \   'preferences.formatOnSaveFiletypes': [
@@ -242,8 +283,13 @@ if !empty(glob(g:vimhome.'/plugged/coc.nvim'))
           \ })
   endif
 
-  " Add `:Format` command to format current buffer.
-  command! -nargs=0 Format :call CocAction('format')
+  " Coc rnix LSP
+  if executable('rnix-lsp')
+    call coc#config('languageserver.nix', {
+      \   'command': 'rnix-lsp',
+      \   'filetypes': ['nix'],
+      \ })
+  endif
 endif
 
 " explorer
@@ -281,14 +327,6 @@ let g:coc_explorer_global_presets = {
             \   }
             \ }
 
-" Coc rnix LSP
-if !empty(exepath('rnix-lsp'))
-  call coc#config('languageserver.nix', {
-    \   'command': 'rnix-lsp',
-    \   'filetypes': ['nix'],
-    \ })
-endif
-
 aug stdin
   au!
   au StdinReadPre * let g:isReadingFromStdin = 1
@@ -303,33 +341,113 @@ function! ProjectStart()
     let l:has_root = v:true
     let l:has_params = v:false
   else
+    let l:has_params = !!argc()
+    if get(g:, 'loaded_rooter', 0)
       let l:has_root = !empty(FindRootDirectory()) " check if it is a project
-      let l:has_params = !!argc()
 
       Rooter " start rooter
+    else
+      let l:has_root = v:false
+    endif
   endif
 
-  call coc#rpc#start_server() " start coc
+  if get(g:, 'did_coc_loaded', 0)
+    call coc#rpc#start_server() " start coc
 
-  " open coc-explorer if I'm in a project and vim is opened without arguments
-  " or only a directory and stdin is not a pipe
-  if l:has_root && !l:has_params && !exists('g:isReadingFromStdin') " if is project
-    CocCommand explorer --preset floatingLeftside
+    " open coc-explorer if I'm in a project and vim is opened without arguments
+    " or only a directory and stdin is not a pipe
+    if l:has_root && !l:has_params && !exists('g:isReadingFromStdin') " if is project
+      CocCommand explorer --preset floatingLeftside
+    endif
   endif
 endfunction
 au VimEnter * call ProjectStart()
 
-command! -bang -nargs=? -complete=dir F call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+if FunctionExists('fzf#vim#files')
+  command! -bang -nargs=? -complete=dir F call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+endif
 
-nnoremap <silent> <space>e :CocCommand explorer<CR>
-nnoremap <silent> <space>ef :CocCommand explorer --preset floating<CR>
-nnoremap <silent> <space>et :CocCommand explorer --preset tab<CR>
+fu! s:on_coc_load()
+  if get(g:, 'did_coc_loaded', 0)
+    nnoremap <silent> <space>e :CocCommand explorer<CR>
+    nnoremap <silent> <space>ef :CocCommand explorer --preset floating<CR>
+    nnoremap <silent> <space>et :CocCommand explorer --preset tab<CR>
+
+    " Select range based on AST
+    nmap <silent><Leader>r <Plug>(coc-range-select)
+    xmap <silent><Leader>r <Plug>(coc-range-select)
+
+    " Use `[g` and `]g` to navigate diagnostics
+    nmap <silent> [g <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+    " Symbol renaming.
+    nmap <leader>rn <Plug>(coc-rename)
+
+    " Navigations
+    nmap <silent> tgd :<C-u>call CocAction('jumpDefinition', 'tab drop')<CR>
+    nmap <silent> tgy :<C-u>call CocAction('jumpTypeDefinition', 'tab drop')<CR>
+    nmap <silent> tgi :<C-u>call CocAction('jumpImplementation', 'tab drop')<CR>
+    nmap <silent> tgr :<C-u>call CocAction('jumpReferences', 'tab drop')<CR>
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+
+    " List code actions available for the current buffer
+    nmap <leader>a  <Plug>(coc-codeaction)
+
+    " Use tab for trigger completion with characters ahead and navigate.
+    " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+    inoremap <silent><expr> <TAB>
+          \ pumvisible() ? "\<C-n>" :
+          \ <SID>check_back_space() ? "\<TAB>" :
+          \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+    function! s:check_back_space() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    " Use <CR> to validate completion (allows auto import on completion)
+    inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+    " Hover
+    nmap K :call <SID>show_documentation()<CR>
+    function! s:show_documentation()
+      if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+      else
+        call CocAction('doHover')
+      endif
+    endfunction
+
+    " Text objects for functions and classes (uses document symbol provider)
+    xmap if <Plug>(coc-funcobj-i)
+    omap if <Plug>(coc-funcobj-i)
+    xmap af <Plug>(coc-funcobj-a)
+    omap af <Plug>(coc-funcobj-a)
+    xmap ic <Plug>(coc-classobj-i)
+    omap ic <Plug>(coc-classobj-i)
+    xmap ac <Plug>(coc-classobj-a)
+    omap ac <Plug>(coc-classobj-a)
+    aug highlight
+      au!
+      au CursorHold * silent call CocActionAsync('highlight')
+    aug END
+
+    " Add `:Format` command to format current buffer.
+    command! -nargs=0 Format :call CocAction('format')
+  endif
+endfu
+autocmd VimEnter * call s:on_coc_load()
+
 aug explorer
   au!
   au BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 aug END
 
-map t :tabnew<CR>
 map <C-n> :tabn<CR>
 map <C-p> :tabp<CR>
 
@@ -341,17 +459,6 @@ aug END
 " rust
 let g:rustfmt_autosave = 0
 let g:rustfmt_fail_silently = 0
-
-" Select range based on AST
-nmap <silent><Leader>r <Plug>(coc-range-select)
-xmap <silent><Leader>r <Plug>(coc-range-select)
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
 
 " Reselect visual selection after indenting
 vnoremap < <gv
@@ -367,59 +474,6 @@ vnoremap <leader>p "_dP
 
 " Make Y behave like the other capitals
 nnoremap Y y$
-
-" Navigations
-nmap <silent> tgd :<C-u>call CocAction('jumpDefinition', 'tab drop')<CR>
-nmap <silent> tgy :<C-u>call CocAction('jumpTypeDefinition', 'tab drop')<CR>
-nmap <silent> tgi :<C-u>call CocAction('jumpImplementation', 'tab drop')<CR>
-nmap <silent> tgr :<C-u>call CocAction('jumpReferences', 'tab drop')<CR>
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" List code actions available for the current buffer
-nmap <leader>a  <Plug>(coc-codeaction)
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <CR> to validate completion (allows auto import on completion)
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Hover
-nmap K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Text objects for functions and classes (uses document symbol provider)
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-aug highlight
-  au!
-  au CursorHold * silent call CocActionAsync('highlight')
-aug END
 
 " Execute macro on each line if in visual mode
 function! ExecuteMacroOverVisualRange()
@@ -486,7 +540,9 @@ endif
 syntax on
 filetype plugin indent on
 if has('nvim-0.5')
-  lua <<EOF
+  fu! s:on_treesitter_load()
+    if get(g:, 'loaded_nvim_treesitter', 0)
+      lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {
     'rust', 'php', 'html', 'css', 'scss', 'json', 'jsonc', 'toml',
@@ -513,8 +569,11 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-  set foldmethod=expr
-  set foldexpr=nvim_treesitter#foldexpr()
+      set foldmethod=expr
+      set foldexpr=nvim_treesitter#foldexpr()
+    endif
+  endfu
+  autocmd VimEnter * call s:on_treesitter_load()
 endif
 
 if has('nvim-0.5')
