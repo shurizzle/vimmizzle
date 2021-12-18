@@ -171,7 +171,7 @@ if $TERM ==# 'xterm-kitty'
   endif
 endif
 
-call SetColorscheme(['nord', 'evening'])
+call SetColorscheme(['nord', 'slate', 'evening'])
 
 set noexrc
 set secure
