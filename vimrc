@@ -68,12 +68,8 @@ if isdirectory(g:vimhome.'/plugged/vim-plug')
 
   " php
   if executable('php') && executable('composer')
-    Plug 'tpope/vim-dispatch'
-    Plug 'tpope/vim-projectionist'
-    Plug 'noahfrederick/vim-composer'
-    Plug 'noahfrederick/vim-laravel'
-    Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'}
-    Plug 'phpactor/coc-phpactor', {'do': 'yarn install --frozen-lockfile'}
+    Plug 'phpactor/phpactor', {'for': 'php', 'branch': 'master', 'do': 'composer install --no-dev -o'}
+    Plug 'marlonfan/coc-phpls', {'do': 'yarn install --frozen-lockfile'}
     Plug 'yaegassy/coc-php-cs-fixer', {'do': 'yarn install --frozen-lockfile'}
     Plug 'jwalton512/vim-blade'
     Plug 'yaegassy/coc-blade', {'do': 'yarn install --frozen-lockfile'}
