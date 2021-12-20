@@ -128,9 +128,6 @@ let g:firenvim_config = {
   \ }
 \ }
 
-" Reload vimrc if I'm working on it
-au BufWritePost * if resolve($MYVIMRC) ==# resolve(expand('%:p')) | source % | endif
-
 function! Colorschemes()
   let colors = split(globpath(&rtp, "colors/*.vim"), "\n")
   if has('packages')
@@ -159,18 +156,6 @@ function! SetColorscheme(name) abort
     endif
   endif
 endfunction
-
-fu! ForceFunctionLoad(name)
-  try
-    exe 'call '.a:name.'()'
-  catch
-  endtry
-endfu
-
-fu! FunctionExists(name)
-  call ForceFunctionLoad(a:name)
-  return exists('*'.a:name)
-endfu
 
 let mapleader = ","
 
@@ -262,7 +247,7 @@ let g:rooter_patterns = ['.git', '_darcs', '.hg', '.bzr', '.svn', 'Makefile', 'p
 
 " Coc
 let g:coc_start_at_startup = 0
-if FunctionExists('coc#config')
+try
   call coc#config('suggest', {'noselect': v:false})
   call coc#config('coc', {
               \   'preferences.formatOnSaveFiletypes': [
@@ -306,7 +291,8 @@ if FunctionExists('coc#config')
       \   'filetypes': ['nix'],
       \ })
   endif
-endif
+catch /^E117/
+endtry
 
 " explorer
 let g:coc_explorer_global_presets = {
@@ -383,9 +369,13 @@ function! ProjectStart()
 endfunction
 au VimEnter * call ProjectStart()
 
-if FunctionExists('fzf#vim#files')
-  command! -bang -nargs=? -complete=dir F call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-endif
+fu! s:on_fzf_load()
+  if get(g:, 'loaded_fzf_vim', 0)
+    command! -bang -nargs=? -complete=dir F call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+  endif
+endfu
+
+au VimEnter * call s:on_fzf_load()
 
 fu! s:on_coc_load()
   if get(g:, 'did_coc_loaded', 0)
@@ -602,7 +592,6 @@ if executable('cargo')
       else
         let cmd = '!'
       endif
-      echo cmd
 
       execute cmd 'cargo' args
   endfunction
