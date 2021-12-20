@@ -26,6 +26,8 @@ if isdirectory(g:vimhome.'/plugged/vim-plug')
     Plug 'roxma/vim-hug-neovim-rpc'
   endif
 
+  Plug 'chrisbra/Colorizer'
+
   " Plugins
   Plug 'airblade/vim-rooter'
   Plug 'MarcWeber/vim-addon-local-vimrc'
