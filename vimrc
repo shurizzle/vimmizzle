@@ -57,7 +57,9 @@ if isdirectory(g:vimhome.'/plugged/vim-plug')
   Plug 'editorconfig/editorconfig-vim'
 
   " Markdown
-  Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
+  if get(g:, 'started_by_firenvim', 0)
+    Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
+  endif
 
   " viml
   Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
@@ -89,6 +91,8 @@ if isdirectory(g:vimhome.'/plugged/vim-plug')
 
   " rust
   if !has('nvim-0.5')
+    let g:loaded_rust_vim_plugin_cargo = 1
+    let g:loaded_rust_vim = 1
     Plug 'cespare/vim-toml'
     Plug 'rust-lang/rust.vim'
   endif
@@ -102,11 +106,27 @@ if isdirectory(g:vimhome.'/plugged/vim-plug')
   " c
   Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
 
+  if has('nvim')
+    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+  endif
+
   call plug#end()
 
   " vim-plug is managing itself as a plugin so disable PlugUpgrade
   delc PlugUpgrade
 endif
+
+let g:firenvim_config = {
+  \ 'globalSettings': {
+    \ 'alt': 'all',
+  \ },
+  \ 'localSettings': {
+    \ 'https?://[^/]+\.(instagram\.com|twitch\.tv)': {
+      \ 'takeover': 'never',
+      \ 'priority': 1,
+    \ }
+  \ }
+\ }
 
 " Reload vimrc if I'm working on it
 au BufWritePost * if resolve($MYVIMRC) ==# resolve(expand('%:p')) | source % | endif
@@ -353,7 +373,11 @@ function! ProjectStart()
     " open coc-explorer if I'm in a project and vim is opened without arguments
     " or only a directory and stdin is not a pipe
     if l:has_root && !l:has_params && !exists('g:isReadingFromStdin') " if is project
-      CocCommand explorer --preset floatingLeftside
+      if has('nvim')
+        CocCommand explorer --preset floatingLeftside
+      else
+        CocCommand explorer
+      endif
     endif
   endif
 endfunction
@@ -451,10 +475,6 @@ aug removetrailingspaces
   au!
   au BufWritePre * :%s/\s\+$//e
 aug END
-
-" rust
-let g:rustfmt_autosave = 0
-let g:rustfmt_fail_silently = 0
 
 " Reselect visual selection after indenting
 vnoremap < <gv
@@ -572,7 +592,7 @@ EOF
   autocmd VimEnter * call s:on_treesitter_load()
 endif
 
-if has('nvim-0.5')
+if executable('cargo')
   function! Cargo(args) abort
       let args = substitute(a:args, '\s\+$', '', '')
       if has('terminal')
