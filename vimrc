@@ -43,6 +43,7 @@ if isdirectory(g:vimhome.'/plugged/vim-plug')
   if has('nvim')
     Plug 'glepnir/dashboard-nvim'
   endif
+  Plug 'ryanoasis/vim-devicons'
   Plug 'arcticicestudio/nord-vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
@@ -272,7 +273,12 @@ try
               \   'keyMappings.global': {
               \     '<cr>': ['expandable?', ['expanded?', 'collapse','expand'], 'open'],
               \     'v': 'open:vsplit'
-              \   }
+              \   },
+              \   'buffer.root.template': '[icon & 1] OPEN EDITORS',
+              \   'file.root.template': '[icon & 1] PROJECT ([root])',
+              \   'file.child.template': '[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]',
+              \   'icon.enableNerdfont': v:true,
+              \   'icon.source': 'vim-devicons',
               \ })
   " PHP
   if executable('php') && executable('composer')
